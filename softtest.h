@@ -26,3 +26,6 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #define SOFTTEST_RUN_TEST(test) softtestRunTest(test, __FILE__, #test, __LINE__)
 #define SOFTTEST_END() softtestEnd()
 
+#define ST_ASSERT(expression)                                                  \
+        softtestAssert(expression, #expression, __FILE__, __func__, __LINE__)
+

@@ -29,3 +29,5 @@ void softtestStart(void);
 void softtestRunTest(void (*test)(void), const char *file, const char *function,
                      const int line);
 int softtestEnd(void);
+void softtestAssert(const int condition, const char *expression,
+                    const char *file, const char *function, const int line);

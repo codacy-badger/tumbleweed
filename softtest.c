@@ -42,6 +42,8 @@ void softtestStartTest(const char *file, const char *function, const int line);
 void softtestEndTest(void);
 void softtestSuccess(void);
 void softtestFailure(void);
+void softtestAssertionFailed(const char *file, const char *function,
+                             const int line, const char *format, ...);
 
 void softtestStart(void)
 {
@@ -120,5 +122,26 @@ int softtestEnd(void)
         printf("failed = %d\n", softtest_status.failed_tests);
         printf("---\n");
         return softtest_status.failed_tests;
+}
+
+void softtestAssert(const int condition, const char *expression,
+                    const char *file, const char *function, const int line)
+{
+        if (!condition) {
+                softtestAssertionFailed(file, function, line,
+                                        "%s evaluated to false", expression);
+        }
+}
+
+void softtestAssertionFailed(const char *file, const char *function,
+                             const int line, const char *format, ...)
+{
+        softtest_status.actual_test_passed = false;
+        printf("%s#%s(%d): ", file, function, line);
+        va_list arg;
+        va_start(arg, format);
+        vprintf(format, arg);
+        va_end(arg);
+        printf("\n");
 }
 
