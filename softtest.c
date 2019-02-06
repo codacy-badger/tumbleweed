@@ -26,7 +26,6 @@ struct SofttestStatus {
         int total_tests;
         int passed_tests;
         int failed_tests;
-        int skipped_tests;
         const char *actual_test_file;
         const char *actual_test_name;
         int actual_test_line;
@@ -36,16 +35,19 @@ struct SofttestStatus {
 };
 
 static struct SofttestStatus softtest_status;
+static const char *softtestPassedString = "PASS";
+static const char *softtestFailedString = "FAIL";
 
 void softtestStartTest(const char *file, const char *function, const int line);
 void softtestEndTest(void);
+void softtestSuccess(void);
+void softtestFailure(void);
 
 void softtestStart(void)
 {
-        softtest_status.total_tests   = 0;
-        softtest_status.passed_tests  = 0;
-        softtest_status.failed_tests  = 0;
-        softtest_status.skipped_tests = 0;
+        softtest_status.total_tests  = 0;
+        softtest_status.passed_tests = 0;
+        softtest_status.failed_tests = 0;
 }
 
 void softtestRunTest(void (*test)(void), const char *file, const char *function,
@@ -68,9 +70,55 @@ void softtestStartTest(const char *file, const char *function, const int line)
 
 void softtestEndTest(void)
 {
+        timespec_get(&softtest_status.end_time, TIME_UTC);
+        if (softtest_status.actual_test_passed) {
+                softtest_status.passed_tests++;
+                softtestSuccess();
+        } else {
+                softtest_status.failed_tests++;
+        }
 }
 
-void softtestEnd(void)
+void softtestSuccess(void)
 {
+        printf("[%s]", softtestPassedString);
+        printf(" ");
+        double elapsed = (softtest_status.end_time.tv_sec -
+                          softtest_status.start_time.tv_sec) +
+                         (softtest_status.end_time.tv_nsec -
+                          softtest_status.start_time.tv_nsec) /
+                                 1.0E9;
+        printf("[%.9f s]", elapsed);
+        printf(" ");
+        printf("%s::%d -> %s\n", softtest_status.actual_test_file,
+               softtest_status.actual_test_line,
+               softtest_status.actual_test_name);
+}
+
+void softtestFailure(void)
+{
+        printf("[%s]", softtestFailedString);
+        printf(" ");
+        double elapsed = (softtest_status.end_time.tv_sec -
+                          softtest_status.start_time.tv_sec) +
+                         (softtest_status.end_time.tv_nsec -
+                          softtest_status.start_time.tv_nsec) /
+                                 1.0E9;
+        printf("[%.9f s]", elapsed);
+        printf(" ");
+        printf("%s::%d -> %s\n", softtest_status.actual_test_file,
+               softtest_status.actual_test_line,
+               softtest_status.actual_test_name);
+}
+
+int softtestEnd(void)
+{
+        printf("---\n");
+        printf("summary:\n");
+        printf("total = %d\n", softtest_status.total_tests);
+        printf("passed = %d\n", softtest_status.passed_tests);
+        printf("failed = %d\n", softtest_status.failed_tests);
+        printf("---\n");
+        return softtest_status.failed_tests;
 }
 

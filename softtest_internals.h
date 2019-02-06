@@ -28,4 +28,4 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 void softtestStart(void);
 void softtestRunTest(void (*test)(void), const char *file, const char *function,
                      const int line);
-void softtestEnd(void);
+int softtestEnd(void);
