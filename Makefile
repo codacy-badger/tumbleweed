@@ -24,10 +24,25 @@
 ################################################################################
 # remove default rules
 .SUFFIXES:
+# paths
+PATH_BUILD = build
+PATH_INC = include
+PATH_SRC = src
 # phony
-.PHONY: all
+.PHONY: all clean
 # rules
 all: softtest
+
+clean: 
+	$(RM) -r $(PATH_BUILD)
+
+################################################################################
+############################# Utilities ########################################
+################################################################################
+CD = cd
+PWD = pwd
+RM = rm -f
+MKDIR = mkdir -p
 
 ################################################################################
 ##################################### C ########################################
@@ -47,13 +62,20 @@ CFLAGS += -Werror
 # compilation flags
 SOFTTEST_FLAGS = $(CFLAGS)
 SOFTTEST_FLAGS += -O2
+# paths
+SOFTTEST_PATH = $(PATH_SRC)/softtest
+SOFTTEST_BUILD = $(PATH_BUILD)/softtest
 #files
-SOFTTEST_SRC = softtest.c
-SOFTTEST_OBJ = softtest.o
+SOFTTEST_SRC = $(wildcard $(SOFTTEST_PATH)/*.c)
+SOFTTEST_OBJ = $(SOFTTEST_SRC:$(SOFTTEST_PATH)/%.c=$(SOFTTEST_BUILD)/%.o)
 # phony
-.PHONY: softtest
+.PHONY: softtest clean-softtest
 # rules
 softtest: $(SOFTTEST_OBJ)
 
-softtest.o: softtest.h softtest_internals.h softtest.c
-	$(CC) $(SOFTTEST_FLAGS) -c softtest.c
+$(SOFTTEST_BUILD)/%.o: $(SOFTTEST_PATH)/%.c
+	$(MKDIR) $(@D)
+	$(CC) $(SOFTTEST_FLAGS) -c $< -o $@
+
+clean-softtest: 
+	$(RM) -r $(SOFTTEST_BUILD)
