@@ -37,6 +37,9 @@ struct SofttestStatus {
 
 static struct SofttestStatus softtest_status;
 
+void softtestStartTest(const char *file, const char *function, const int line);
+void softtestEndTest(void);
+
 void softtestStart(void)
 {
         softtest_status.total_tests   = 0;
@@ -48,11 +51,23 @@ void softtestStart(void)
 void softtestRunTest(void (*test)(void), const char *file, const char *function,
                      const int line)
 {
+        softtestStartTest(file, function, line);
+        test();
+        softtestEndTest();
+}
+
+void softtestStartTest(const char *file, const char *function, const int line)
+{
         softtest_status.actual_test_file   = file;
         softtest_status.actual_test_name   = function;
         softtest_status.actual_test_line   = line;
         softtest_status.actual_test_passed = true;
-        test();
+        softtest_status.total_tests++;
+        timespec_get(&softtest_status.start_time, TIME_UTC);
+}
+
+void softtestEndTest(void)
+{
 }
 
 void softtestEnd(void)
