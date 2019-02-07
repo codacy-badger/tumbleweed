@@ -22,6 +22,13 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #include "softtest_internals.h"
 
+#define RESET "\033[0m"
+#define RED "\033[31m"
+#define GREEN "\033[32m"
+#define YELLOW "\033[33m"
+#define BLUE "\033[34m"
+#define BOLD "\033[1m"
+
 struct SofttestStatus {
         int total_tests;
         int passed_tests;
@@ -37,6 +44,9 @@ struct SofttestStatus {
 static struct SofttestStatus softtest_status;
 static const char *softtestPassedString = "PASS";
 static const char *softtestFailedString = "FAIL";
+static const char *softtestDelimiterString =
+        "----------------------------------------------------------------------"
+        "----------";
 
 void softtestStartTest(const char *file, const char *function, const int line);
 void softtestEndTest(void);
@@ -72,8 +82,8 @@ void softtestStartTest(const char *file, const char *function, const int line)
 
 void softtestEndTest(void)
 {
-        timespec_get(&softtest_status.end_time, TIME_UTC);
         if (softtest_status.actual_test_passed) {
+                timespec_get(&softtest_status.end_time, TIME_UTC);
                 softtest_status.passed_tests++;
                 softtestSuccess();
         } else {
@@ -83,7 +93,7 @@ void softtestEndTest(void)
 
 void softtestSuccess(void)
 {
-        printf("[%s]", softtestPassedString);
+        printf("[" BOLD GREEN "%s" RESET "]", softtestPassedString);
         printf(" ");
         double elapsed = (softtest_status.end_time.tv_sec -
                           softtest_status.start_time.tv_sec) +
@@ -92,14 +102,15 @@ void softtestSuccess(void)
                                  1.0E9;
         printf("[%.9f s]", elapsed);
         printf(" ");
-        printf("%s::%d -> %s\n", softtest_status.actual_test_file,
+        printf(BOLD "%s::%d" RESET " -> %s\n", softtest_status.actual_test_file,
                softtest_status.actual_test_line,
                softtest_status.actual_test_name);
 }
 
 void softtestFailure(void)
 {
-        printf("[%s]", softtestFailedString);
+        timespec_get(&softtest_status.end_time, TIME_UTC);
+        printf("[" BOLD RED "%s" RESET "]", softtestFailedString);
         printf(" ");
         double elapsed = (softtest_status.end_time.tv_sec -
                           softtest_status.start_time.tv_sec) +
@@ -108,19 +119,19 @@ void softtestFailure(void)
                                  1.0E9;
         printf("[%.9f s]", elapsed);
         printf(" ");
-        printf("%s::%d -> %s\n", softtest_status.actual_test_file,
+        printf(BOLD "%s::%d" RESET " -> %s\n", softtest_status.actual_test_file,
                softtest_status.actual_test_line,
                softtest_status.actual_test_name);
 }
 
 int softtestEnd(void)
 {
-        printf("---\n");
-        printf("summary:\n");
+        printf("%s\n", softtestDelimiterString);
+        printf(BOLD BLUE "summary:" RESET "\n");
         printf("total = %d\n", softtest_status.total_tests);
         printf("passed = %d\n", softtest_status.passed_tests);
         printf("failed = %d\n", softtest_status.failed_tests);
-        printf("---\n");
+        printf("%s\n", softtestDelimiterString);
         return softtest_status.failed_tests;
 }
 
@@ -137,7 +148,8 @@ void softtestAssertionFailed(const char *file, const char *function,
                              const int line, const char *format, ...)
 {
         softtest_status.actual_test_passed = false;
-        printf("%s#%s(%d): ", file, function, line);
+        softtestFailure();
+        printf("%*c" BOLD "%s::%s::%d " RESET, 7, ' ', file, function, line);
         va_list arg;
         va_start(arg, format);
         vprintf(format, arg);
