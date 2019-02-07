@@ -1,22 +1,11 @@
-#include "softtest/softtest.h"
-
-void assert_true(void);
-void assert_false(void);
+#include "test-softtest.h"
 
 int main(void)
 {
         SOFTTEST_START();
-        SOFTTEST_RUN_TEST(assert_true);
-        SOFTTEST_RUN_TEST(assert_false);
+        SOFTTEST_RUN_TEST(softtestCheckTrue_True);
+        SOFTTEST_RUN_TEST(softtestCheckTrue_False);
+        SOFTTEST_RUN_TEST(softtestCheckFalse_False);
+        SOFTTEST_RUN_TEST(softtestCheckFalse_True);
         return SOFTTEST_END();
-}
-
-void assert_true(void)
-{
-        ST_ASSERT(1 == 1);
-}
-
-void assert_false(void)
-{
-        ST_ASSERT(1 == 0);
 }

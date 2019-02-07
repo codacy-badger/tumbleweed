@@ -37,6 +37,7 @@ struct SofttestStatus {
         const char *actual_test_name;
         int actual_test_line;
         bool actual_test_passed;
+        bool actual_test_fast_end;
         struct timespec start_time;
         struct timespec end_time;
 };
@@ -131,10 +132,10 @@ int softtestEnd(void)
         printf(BOLD BLUE "summary:" RESET "\n");
         printf("total  = %d\n", softtest_status.total_tests);
         printf(GREEN "passed" RESET " = %d ", softtest_status.passed_tests);
-        printf("[%2.0f%%]\n", 100.0 * softtest_status.passed_tests /
+        printf("[%3.0f%%]\n", 100.0 * softtest_status.passed_tests /
                                       softtest_status.total_tests);
         printf(RED "failed" RESET " = %d ", softtest_status.failed_tests);
-        printf("[%2.0f%%]\n", 100.0 * softtest_status.failed_tests /
+        printf("[%3.0f%%]\n", 100.0 * softtest_status.failed_tests /
                                       softtest_status.total_tests);
         printf("%s\n", softtestDelimiterString);
         return softtest_status.failed_tests;
@@ -158,6 +159,26 @@ void softtestAssertionFailed(const char *file, const char *function,
                line);
         va_list arg;
         va_start(arg, format);
+        vprintf(format, arg);
+        va_end(arg);
+        printf("\n");
+}
+
+void softtestPass(void)
+{
+        softtest_status.actual_test_fast_end = true;
+}
+
+void softtestFail(const char *file, const char *function, const int line, ...)
+{
+        softtest_status.actual_test_passed = false;
+        softtestFailure();
+        printf("%*c" BOLD "%s::%s::%d " RESET "-> ", 7, ' ', file, function,
+               line);
+        softtest_status.actual_test_fast_end = true;
+        va_list arg;
+        va_start(arg, line);
+        char *format = va_arg(arg, char *);
         vprintf(format, arg);
         va_end(arg);
         printf("\n");
