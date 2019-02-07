@@ -28,10 +28,13 @@
 PATH_BUILD = build
 PATH_INC = include
 PATH_SRC = src
+PATH_TEST = test
 # phony
-.PHONY: all clean
+.PHONY: all test clean
 # rules
 all: softtest
+
+test: test-softtest
 
 clean: 
 	$(RM) -r $(PATH_BUILD)
@@ -62,20 +65,31 @@ CFLAGS += -Werror
 # compilation flags
 SOFTTEST_FLAGS = $(CFLAGS)
 SOFTTEST_FLAGS += -O2
+SOFTTEST_FLAGS_TEST = $(CFLAGS)
+SOFTTEST_FLAGS_TEST += -O0
+SOFTTEST_FLAGS_TEST += -g
+SOFTTEST_FLAGS_TEST += -I$(PATH_INC)
+SOFTTEST_FLAGS_TEST += -I$(SOFTTEST_PATH)
 # paths
 SOFTTEST_PATH = $(PATH_SRC)/softtest
 SOFTTEST_BUILD = $(PATH_BUILD)/softtest
+SOFTTEST_PATH_TEST = $(PATH_TEST)/softtest
 #files
 SOFTTEST_SRC = $(wildcard $(SOFTTEST_PATH)/*.c)
 SOFTTEST_OBJ = $(SOFTTEST_SRC:$(SOFTTEST_PATH)/%.c=$(SOFTTEST_BUILD)/%.o)
+SOFTTEST_TEST = $(wildcard $(SOFTTEST_PATH_TEST)/*.c)
 # phony
-.PHONY: softtest clean-softtest
+.PHONY: softtest test-softtest clean-softtest
 # rules
 softtest: $(SOFTTEST_OBJ)
 
 $(SOFTTEST_BUILD)/%.o: $(SOFTTEST_PATH)/%.c
 	$(MKDIR) $(@D)
 	$(CC) $(SOFTTEST_FLAGS) -c $< -o $@
+
+test-softtest: $(SOFTTEST_TEST)
+	$(MKDIR) $(SOFTTEST_BUILD)
+	$(CC) $(SOFTTEST_FLAGS_TEST) $(SOFTTEST_SRC) $(SOFTTEST_TEST) -o $(SOFTTEST_BUILD)/test
 
 clean-softtest: 
 	$(RM) -r $(SOFTTEST_BUILD)
