@@ -126,11 +126,16 @@ void softtestFailure(void)
 
 int softtestEnd(void)
 {
+        printf("\n");
         printf("%s\n", softtestDelimiterString);
         printf(BOLD BLUE "summary:" RESET "\n");
-        printf("total = %d\n", softtest_status.total_tests);
-        printf("passed = %d\n", softtest_status.passed_tests);
-        printf("failed = %d\n", softtest_status.failed_tests);
+        printf("total  = %d\n", softtest_status.total_tests);
+        printf(GREEN "passed" RESET " = %d ", softtest_status.passed_tests);
+        printf("[%2.0f%%]\n", 100.0 * softtest_status.passed_tests /
+                                      softtest_status.total_tests);
+        printf(RED "failed" RESET " = %d ", softtest_status.failed_tests);
+        printf("[%2.0f%%]\n", 100.0 * softtest_status.failed_tests /
+                                      softtest_status.total_tests);
         printf("%s\n", softtestDelimiterString);
         return softtest_status.failed_tests;
 }
@@ -149,7 +154,8 @@ void softtestAssertionFailed(const char *file, const char *function,
 {
         softtest_status.actual_test_passed = false;
         softtestFailure();
-        printf("%*c" BOLD "%s::%s::%d " RESET, 7, ' ', file, function, line);
+        printf("%*c" BOLD "%s::%s::%d " RESET "-> ", 7, ' ', file, function,
+               line);
         va_list arg;
         va_start(arg, format);
         vprintf(format, arg);
