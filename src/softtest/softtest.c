@@ -20,6 +20,7 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE
 OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
+#include "check.h"
 #include "softtest_internals.h"
 
 #define RESET "\033[0m"
@@ -28,6 +29,11 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #define YELLOW "\033[33m"
 #define BLUE "\033[34m"
 #define BOLD "\033[1m"
+
+#define RETURN_IF_FAST_END                                                     \
+        if (softtest_status.actual_test_fast_end) {                            \
+                return;                                                        \
+        }
 
 struct SofttestStatus {
         int total_tests;
@@ -111,6 +117,7 @@ void softtestSuccess(void)
 void softtestFailure(void)
 {
         timespec_get(&softtest_status.end_time, TIME_UTC);
+        softtest_status.actual_test_passed = false;
         printf("[" BOLD RED "%s" RESET "]", softtestFailedString);
         printf(" ");
         double elapsed = (softtest_status.end_time.tv_sec -
@@ -141,29 +148,6 @@ int softtestEnd(void)
         return softtest_status.failed_tests;
 }
 
-void softtestAssert(const int condition, const char *expression,
-                    const char *file, const char *function, const int line)
-{
-        if (!condition) {
-                softtestAssertionFailed(file, function, line,
-                                        "%s evaluated to false", expression);
-        }
-}
-
-void softtestAssertionFailed(const char *file, const char *function,
-                             const int line, const char *format, ...)
-{
-        softtest_status.actual_test_passed = false;
-        softtestFailure();
-        printf("%*c" BOLD "%s::%s::%d " RESET "-> ", 7, ' ', file, function,
-               line);
-        va_list arg;
-        va_start(arg, format);
-        vprintf(format, arg);
-        va_end(arg);
-        printf("\n");
-}
-
 void softtestPass(void)
 {
         softtest_status.actual_test_fast_end = true;
@@ -171,7 +155,6 @@ void softtestPass(void)
 
 void softtestFail(const char *file, const char *function, const int line, ...)
 {
-        softtest_status.actual_test_passed = false;
         softtestFailure();
         printf("%*c" BOLD "%s::%s::%d " RESET "-> ", 7, ' ', file, function,
                line);
@@ -184,3 +167,57 @@ void softtestFail(const char *file, const char *function, const int line, ...)
         printf("\n");
 }
 
+void softtestAssertionFailed(const char *file, const char *function,
+                             const int line, const char *format, ...)
+{
+        softtestFailure();
+        printf("%*c" BOLD "%s::%s::%d " RESET "-> ", 7, ' ', file, function,
+               line);
+        va_list arg;
+        va_start(arg, format);
+        vprintf(format, arg);
+        va_end(arg);
+        printf("\n");
+}
+
+void softtestAssert(const int condition, const char *expression,
+                    const char *file, const char *function, const int line)
+{
+        RETURN_IF_FAST_END;
+        if (!condition) {
+                softtestAssertionFailed(file, function, line,
+                                        "%s evaluated to false", expression);
+        }
+}
+
+void softtestAssertTrue(const bool condition, const char *file,
+                        const char *function, const int line)
+{
+        RETURN_IF_FAST_END;
+        if (!softtestCheckTrue(condition)) {
+                softtestAssertionFailed(file, function, line,
+                                        "expected true was false");
+        }
+}
+
+void softtestAssertFalse(const bool condition, const char *file,
+                         const char *function, const int line)
+{
+        RETURN_IF_FAST_END;
+        if (!softtestCheckFalse(condition)) {
+                softtestAssertionFailed(file, function, line,
+                                        "expected false was true");
+        }
+}
+
+void softtestAssertIntEquals(const int expected, const int actual,
+                             const char *file, const char *function,
+                             const int line)
+{
+        RETURN_IF_FAST_END;
+        if (!softtestCheckIntEquals(expected, actual)) {
+                softtestAssertionFailed(file, function, line,
+                                        "expected (int) %d was %d", expected,
+                                        actual);
+        }
+}

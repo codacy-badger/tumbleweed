@@ -31,4 +31,9 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #define ST_ASSERT(expression)                                                  \
         softtestAssert(expression, #expression, __FILE__, __func__, __LINE__)
-
+#define ST_ASSERT_TRUE(condition)                                              \
+        softtestAssertTrue(condition, __FILE__, __func__, __LINE__)
+#define ST_ASSERT_FALSE(condition)                                             \
+        softtestAssertFalse(condition, __FILE__, __func__, __LINE__)
+#define ST_ASSERT_INT_EQUALS(expected, actual)                                 \
+        softtestAssertIntEquals(expected, actual, __FILE__, __func__, __LINE__)

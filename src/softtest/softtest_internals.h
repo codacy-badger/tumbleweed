@@ -31,5 +31,13 @@ void softtestRunTest(void (*test)(void), const char *file, const char *function,
 int softtestEnd(void);
 void softtestPass(void);
 void softtestFail(const char *file, const char *function, const int line, ...);
+
 void softtestAssert(const int condition, const char *expression,
                     const char *file, const char *function, const int line);
+void softtestAssertTrue(const bool condition, const char *file,
+                        const char *function, const int line);
+void softtestAssertFalse(const bool condition, const char *file,
+                         const char *function, const int line);
+void softtestAssertIntEquals(const int expected, const int actual,
+                             const char *file, const char *function,
+                             const int line);

@@ -35,3 +35,19 @@ void softtestCheckFalse_True(void)
                 SOFTTEST_PASS();
         }
 }
+
+void softtestCheckIntEquals_False(void)
+{
+        ST_ASSERT_FALSE(softtestCheckIntEquals(1, 2));
+        ST_ASSERT_FALSE(softtestCheckIntEquals(0, 1));
+        ST_ASSERT_FALSE(softtestCheckIntEquals(0, -1));
+        ST_ASSERT_FALSE(softtestCheckIntEquals(-2, -1));
+}
+
+void softtestCheckIntEquals_True(void)
+{
+        ST_ASSERT_TRUE(softtestCheckIntEquals(1, 1));
+        ST_ASSERT_TRUE(softtestCheckIntEquals(0, 0));
+        ST_ASSERT_TRUE(softtestCheckIntEquals(-1, -1));
+}
+

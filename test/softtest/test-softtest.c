@@ -7,5 +7,7 @@ int main(void)
         SOFTTEST_RUN_TEST(softtestCheckTrue_False);
         SOFTTEST_RUN_TEST(softtestCheckFalse_False);
         SOFTTEST_RUN_TEST(softtestCheckFalse_True);
+        SOFTTEST_RUN_TEST(softtestCheckIntEquals_False);
+        SOFTTEST_RUN_TEST(softtestCheckIntEquals_True);
         return SOFTTEST_END();
 }
