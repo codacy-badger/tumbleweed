@@ -73,3 +73,33 @@ void softtestCheckIntEquals_True(void)
         ST_ASSERT_TRUE(softtestCheckIntEquals(-1, -1));
 }
 
+void softtestCheckIntNotEquals_True(void)
+{
+        ST_ASSERT_TRUE(softtestCheckIntNotEquals(1, 2));
+        ST_ASSERT_TRUE(softtestCheckIntNotEquals(0, 1));
+        ST_ASSERT_TRUE(softtestCheckIntNotEquals(0, -1));
+        ST_ASSERT_TRUE(softtestCheckIntNotEquals(-2, -1));
+}
+
+void softtestCheckIntNotEquals_False(void)
+{
+        ST_ASSERT_FALSE(softtestCheckIntNotEquals(1, 1));
+        ST_ASSERT_FALSE(softtestCheckIntNotEquals(0, 0));
+        ST_ASSERT_FALSE(softtestCheckIntNotEquals(-1, -1));
+}
+
+void softtestCheckIntGreaterThan_True(void)
+{
+        ST_ASSERT_TRUE(softtestCheckIntGreaterThan(1, 2));
+        ST_ASSERT_TRUE(softtestCheckIntGreaterThan(0, 1));
+        ST_ASSERT_TRUE(softtestCheckIntGreaterThan(-1, 0));
+}
+
+void softtestCheckIntGreaterThan_False(void)
+{
+        ST_ASSERT_TRUE(softtestCheckIntGreaterThan(1, 0));
+        ST_ASSERT_TRUE(softtestCheckIntGreaterThan(2, 1));
+        ST_ASSERT_TRUE(softtestCheckIntGreaterThan(0, 0));
+        ST_ASSERT_TRUE(softtestCheckIntGreaterThan(1, 1));
+        ST_ASSERT_TRUE(softtestCheckIntGreaterThan(-1, -2));
+}

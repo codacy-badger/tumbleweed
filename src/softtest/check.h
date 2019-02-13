@@ -25,3 +25,6 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 bool softtestCheckTrue(bool condition);
 bool softtestCheckFalse(bool condition);
 bool softtestCheckIntEquals(const int expected, const int actual);
+bool softtestCheckIntNotEquals(const int unexpected, const int actual);
+bool softtestCheckIntGreaterThan(const int threshold, const int actual);
+bool softtestCheckIntGreaterOrEquals(const int threshold, const int actual);

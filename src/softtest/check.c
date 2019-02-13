@@ -48,3 +48,30 @@ bool softtestCheckIntEquals(const int expected, const int actual)
                 return false;
         }
 }
+
+bool softtestCheckIntNotEquals(const int unexpected, const int actual)
+{
+        if (actual == unexpected) {
+                return false;
+        } else {
+                return true;
+        }
+}
+
+bool softtestCheckIntGreaterThan(const int threshold, const int actual)
+{
+        if (actual > threshold) {
+                return true;
+        } else {
+                return false;
+        }
+}
+
+bool softtestCheckIntGreaterOrEquals(const int threshold, const int actual)
+{
+        if (actual >= threshold) {
+                return true;
+        } else {
+                return false;
+        }
+}

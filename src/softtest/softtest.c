@@ -221,3 +221,41 @@ void softtestAssertIntEquals(const int expected, const int actual,
                                         actual);
         }
 }
+
+void softtestAssertIntNotEquals(const int unexpected, const int actual,
+                                const char *file, const char *function,
+                                const int line)
+{
+        RETURN_IF_FAST_END;
+        if (!softtestCheckIntNotEquals(unexpected, actual)) {
+                softtestAssertionFailed(file, function, line,
+                                        "expected (int) %d not equals %d",
+                                        actual, unexpected);
+        }
+}
+
+void softtestAssertIntGreaterThan(const int threshold, const int actual,
+                                  const char *file, const char *function,
+                                  const int line)
+{
+        RETURN_IF_FAST_END;
+        if (!softtestCheckIntGreaterThan(threshold, actual)) {
+                softtestAssertionFailed(
+                        file, function, line,
+                        "expected %d greater than %d but was false", actual,
+                        threshold);
+        }
+}
+
+void softtestAssertIntGreaterOrEquals(const int threshold, const int actual,
+                                      const char *file, const char *function,
+                                      const int line)
+{
+        RETURN_IF_FAST_END;
+        if (!softtestCheckIntGreaterOrEquals(threshold, actual)) {
+                softtestAssertionFailed(
+                        file, function, line,
+                        "expected %d greater or equals %d but was false",
+                        actual, threshold);
+        }
+}

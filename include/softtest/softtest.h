@@ -37,3 +37,12 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
         softtestAssertFalse(condition, __FILE__, __func__, __LINE__)
 #define ST_ASSERT_INT_EQUALS(expected, actual)                                 \
         softtestAssertIntEquals(expected, actual, __FILE__, __func__, __LINE__)
+#define ST_ASSERT_INT_NOT_EQUALS(unexpected, actual)                           \
+        softtestAssertIntNotEquals(unexpected, actual, __FILE__, __func__,     \
+                                   __LINE__)
+#define ST_ASSERT_INT_GREATER_THAN(threshold, actual)                          \
+        softtestAssertIntGreaterThan(threshold, actual, __FILE__, __func__,    \
+                                     __LINE__)
+#define ST_ASSERT_INT_GREATER_OR_EQUALS(threshold, actual)                     \
+        softtestAssertIntGreaterOrEquals(threshold, actual, __FILE__,          \
+                                         __func__, __LINE__)

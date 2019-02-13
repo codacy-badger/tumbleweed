@@ -31,5 +31,9 @@ int main(void)
         SOFTTEST_RUN_TEST(softtestCheckFalse_True);
         SOFTTEST_RUN_TEST(softtestCheckIntEquals_False);
         SOFTTEST_RUN_TEST(softtestCheckIntEquals_True);
+        SOFTTEST_RUN_TEST(softtestCheckIntNotEquals_True);
+        SOFTTEST_RUN_TEST(softtestCheckIntNotEquals_False);
+        SOFTTEST_RUN_TEST(softtestCheckIntGreaterThan_True);
+        SOFTTEST_RUN_TEST(softtestCheckIntGreaterThan_False);
         return SOFTTEST_END();
 }

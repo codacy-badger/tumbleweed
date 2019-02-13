@@ -41,3 +41,12 @@ void softtestAssertFalse(const bool condition, const char *file,
 void softtestAssertIntEquals(const int expected, const int actual,
                              const char *file, const char *function,
                              const int line);
+void softtestAssertIntNotEquals(const int unexpected, const int actual,
+                                const char *file, const char *function,
+                                const int line);
+void softtestAssertIntGreaterThan(const int threshold, const int actual,
+                                  const char *file, const char *function,
+                                  const int line);
+void softtestAssertIntGreaterOrEquals(const int threshold, const int actual,
+                                      const char *file, const char *function,
+                                      const int line);

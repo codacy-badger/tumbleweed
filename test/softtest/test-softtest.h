@@ -31,3 +31,7 @@ void softtestCheckFalse_False(void);
 void softtestCheckFalse_True(void);
 void softtestCheckIntEquals_False(void);
 void softtestCheckIntEquals_True(void);
+void softtestCheckIntNotEquals_True(void);
+void softtestCheckIntNotEquals_False(void);
+void softtestCheckIntGreaterThan_True(void);
+void softtestCheckIntGreaterThan_False(void);
