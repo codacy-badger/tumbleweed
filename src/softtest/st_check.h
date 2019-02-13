@@ -110,3 +110,102 @@ bool softtest_check_long_long_within(const long low, const long high,
 bool softtest_check_long_long_outside(const long low, const long high,
                                       const long actual);
 
+/* unsigned char */
+bool softtest_check_unsigned_char_equals(const unsigned char expected,
+                                         const unsigned char actual);
+bool softtest_check_unsigned_char_not_equals(const unsigned char expected,
+                                             const unsigned char actual);
+bool softtest_check_unsigned_char_greater_than(const unsigned char threshold,
+                                               const unsigned char actual);
+bool softtest_check_unsigned_char_greater_or_equals(
+        const unsigned char threshold, const unsigned char actual);
+bool softtest_check_unsigned_char_less_than(const unsigned char threshold,
+                                            const unsigned char actual);
+bool softtest_check_unsigned_char_less_or_equals(const unsigned char threshold,
+                                                 const unsigned char actual);
+bool softtest_check_unsigned_char_within(const unsigned char low,
+                                         const unsigned char high,
+                                         const unsigned char actual);
+bool softtest_check_unsigned_char_outside(const unsigned char low,
+                                          const unsigned char high,
+                                          const unsigned char actual);
+
+/* unsigned short */
+bool softtest_check_unsigned_short_equals(const unsigned short expected,
+                                          const unsigned short actual);
+bool softtest_check_unsigned_short_not_equals(const unsigned short expected,
+                                              const unsigned short actual);
+bool softtest_check_unsigned_short_greater_than(const unsigned short threshold,
+                                                const unsigned short actual);
+bool softtest_check_unsigned_short_greater_or_equals(
+        const unsigned short threshold, const unsigned short actual);
+bool softtest_check_unsigned_short_less_than(const unsigned short threshold,
+                                             const unsigned short actual);
+bool softtest_check_unsigned_short_less_or_equals(
+        const unsigned short threshold, const unsigned short actual);
+bool softtest_check_unsigned_short_within(const unsigned short low,
+                                          const unsigned short high,
+                                          const unsigned short actual);
+bool softtest_check_unsigned_short_outside(const unsigned short low,
+                                           const unsigned short high,
+                                           const unsigned short actual);
+
+/* unsigned int */
+bool softtest_check_unsigned_int_equals(const unsigned int expected,
+                                        const unsigned int actual);
+bool softtest_check_unsigned_int_not_equals(const unsigned int expected,
+                                            const unsigned int actual);
+bool softtest_check_unsigned_int_greater_than(const unsigned int threshold,
+                                              const unsigned int actual);
+bool softtest_check_unsigned_int_greater_or_equals(const unsigned int threshold,
+                                                   const unsigned int actual);
+bool softtest_check_unsigned_int_less_than(const unsigned int threshold,
+                                           const unsigned int actual);
+bool softtest_check_unsigned_int_less_or_equals(const unsigned int threshold,
+                                                const unsigned int actual);
+bool softtest_check_unsigned_int_within(const unsigned int low,
+                                        const unsigned int high,
+                                        const unsigned int actual);
+bool softtest_check_unsigned_int_outside(const unsigned int low,
+                                         const unsigned int high,
+                                         const unsigned int actual);
+
+/* unsigned long */
+bool softtest_check_unsigned_long_equals(const unsigned long expected,
+                                         const unsigned long actual);
+bool softtest_check_unsigned_long_not_equals(const unsigned long expected,
+                                             const unsigned long actual);
+bool softtest_check_unsigned_long_greater_than(const unsigned long threshold,
+                                               const unsigned long actual);
+bool softtest_check_unsigned_long_greater_or_equals(
+        const unsigned long threshold, const unsigned long actual);
+bool softtest_check_unsigned_long_less_than(const unsigned long threshold,
+                                            const unsigned long actual);
+bool softtest_check_unsigned_long_less_or_equals(const unsigned long threshold,
+                                                 const unsigned long actual);
+bool softtest_check_unsigned_long_within(const unsigned long low,
+                                         const unsigned long high,
+                                         const unsigned long actual);
+bool softtest_check_unsigned_long_outside(const unsigned long low,
+                                          const unsigned long high,
+                                          const unsigned long actual);
+
+/* unsigned long long */
+bool softtest_check_unsigned_long_long_equals(const unsigned long long expected,
+                                              const unsigned long long actual);
+bool softtest_check_unsigned_long_long_not_equals(
+        const unsigned long long expected, const unsigned long long actual);
+bool softtest_check_unsigned_long_long_greater_than(
+        const unsigned long long threshold, const unsigned long long actual);
+bool softtest_check_unsigned_long_long_greater_or_equals(
+        const unsigned long long threshold, const unsigned long long actual);
+bool softtest_check_unsigned_long_long_less_than(
+        const unsigned long long threshold, const unsigned long long actual);
+bool softtest_check_unsigned_long_long_less_or_equals(
+        const unsigned long long threshold, const unsigned long long actual);
+bool softtest_check_unsigned_long_long_within(const unsigned long long low,
+                                              const unsigned long long high,
+                                              const unsigned long long actual);
+bool softtest_check_unsigned_long_long_outside(const unsigned long long low,
+                                               const unsigned long long high,
+                                               const unsigned long long actual);
