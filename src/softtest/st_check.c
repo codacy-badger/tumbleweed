@@ -1076,3 +1076,101 @@ bool softtest_check_complex_long_double_imaginary(
                 return false;
         }
 }
+
+/* bool */
+bool softtest_check_bool_true(const bool boolean)
+{
+        if (boolean) {
+                return true;
+        } else {
+                return false;
+        }
+}
+
+bool softtest_check_bool_false(const bool boolean)
+{
+        if (!boolean) {
+                return true;
+        } else {
+                return false;
+        }
+}
+
+/* pointers */
+bool softtest_check_pointer_equals(const void *const expected,
+                                   const void *const actual)
+{
+        if (actual == expected) {
+                return true;
+        } else {
+                return false;
+        }
+}
+
+bool softtest_check_pointer_not_equals(const void *const unexpected,
+                                       const void *const actual)
+{
+        if (actual != expected) {
+                return true;
+        } else {
+                return false;
+        }
+}
+
+bool softtest_check_pointer_greater_than(const void *const threshold,
+                                         const void *const actual);
+{
+        if (actual > expected) {
+                return true;
+        } else {
+                return false;
+        }
+}
+
+bool softtest_check_pointer_greater_or_equals(const void *const threshold,
+                                              const void *const actual);
+{
+        if (actual >= expected) {
+                return true;
+        } else {
+                return false;
+        }
+}
+
+bool softtest_check_pointer_less_than(const void *const threshold,
+                                      const void *const actual);
+{
+        if (actual < expected) {
+                return true;
+        } else {
+                return false;
+        }
+}
+
+bool softtest_check_pointer_less_or_equals(const void *const threshold,
+                                           const void *const actual);
+{
+        if (actual <= expected) {
+                return true;
+        } else {
+                return false;
+        }
+}
+
+bool softtest_check_pointer_null(const void *const pointer)
+{
+        if (!pointer) {
+                return true;
+        } else {
+                return false;
+        }
+}
+
+bool softtest_check_pointer_not_null(const void *const pointer)
+{
+        if (!pointer) {
+                return true;
+        } else {
+                return false;
+        }
+}

@@ -330,3 +330,36 @@ bool softtest_check_complex_long_double_not_equals(
 bool softtest_check_complex_long_double_real(const long double complex value);
 bool softtest_check_complex_long_double_imaginary(
         const long double complex value);
+
+/* boolean checks
+ * following relations are available for boolean :
+ * - true
+ * - false
+ */
+bool softtest_check_bool_true(const bool boolean);
+bool softtest_check_bool_false(const bool boolean);
+
+/* pointer checks
+ * following relations are available for pointers :
+ * equals : '='
+ * not equals : '='
+ * greater than : '>'
+ * greater or equals : '>='
+ * less than : '<'
+ * less or equals : '<='
+ * null
+ */
+bool softtest_check_pointer_equals(const void *const expected,
+                                   const void *const actual);
+bool softtest_check_pointer_not_equals(const void *const unexpected,
+                                       const void *const actual);
+bool softtest_check_pointer_less_than(const void *const threshold,
+                                      const void *const actual);
+bool softtest_check_pointer_less_or_equals(const void *const threshold,
+                                           const void *const actual);
+bool softtest_check_pointer_greater_than(const void *const threshold,
+                                         const void *const actual);
+bool softtest_check_pointer_greater_or_equals(const void *const threshold,
+                                              const void *const actual);
+bool softtest_check_pointer_null(const void *const pointer);
+bool softtest_check_pointer_not_null(const void *const pointer);
