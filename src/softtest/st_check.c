@@ -674,6 +674,15 @@ bool softtest_check_float_nan(const float value)
         }
 }
 
+bool softtest_check_float_not_nan(const float value)
+{
+        if (!isnan(value)) {
+                return true;
+        } else {
+                return false;
+        }
+}
+
 bool softtest_check_float_within(const float low, const float high,
                                  const float actual)
 {
@@ -687,9 +696,9 @@ bool softtest_check_float_within(const float low, const float high,
 bool softtest_check_float_outside(const float low, const float high,
                                   const float actual)
 {
-        if (actual < low || actual > high) {
+        if (actual < low || actual > high)
                 return true;
-        } else {
+        else {
                 return false;
         }
 }
@@ -791,6 +800,15 @@ bool softtest_check_double_nan(const double value)
         }
 }
 
+bool softtest_check_double_not_nan(const double value)
+{
+        if (!isnan(value)) {
+                return true;
+        } else {
+                return false;
+        }
+}
+
 bool softtest_check_double_within(const double low, const double high,
                                   const double actual)
 {
@@ -804,7 +822,7 @@ bool softtest_check_double_within(const double low, const double high,
 bool softtest_check_double_outside(const double low, const double high,
                                    const double actual)
 {
-        if (actual < low || actual > high) {
+        if (actual < low || actual > high) {
                 return true;
         } else {
                 return false;
@@ -826,7 +844,7 @@ bool softtest_check_long_double_equals_delta(const long double expected,
                                              const long double actual,
                                              const long double delta)
 {
-        if (fabs(actual - expected) <= delta) {
+        if (fabsl(actual - expected) <= delta) {
                 return true;
         } else {
                 return false;
@@ -910,6 +928,15 @@ bool softtest_check_long_double_nan(const long double value)
         }
 }
 
+bool softtest_check_long_double_not_nan(const long double value)
+{
+        if (!isnan(value)) {
+                return true;
+        } else {
+                return false;
+        }
+}
+
 bool softtest_check_long_double_within(const long double low,
                                        const long double high,
                                        const long double actual)
@@ -925,10 +952,127 @@ bool softtest_check_long_double_outside(const long double low,
                                         const long double high,
                                         const long double actual)
 {
-        if (actual < low || actual > high) {
+        if (actual < low || actual > high) {
                 return true;
         } else {
                 return false;
         }
 }
 
+/* float complex */
+bool softtest_check_complex_float_equals(const float complex expected,
+                                         const float complex actual)
+{
+        if (actual == expected) {
+                return true;
+        } else {
+                return false;
+        }
+}
+
+bool softtest_check_complex_float_not_equals(const float complex unexpected,
+                                             const float complex actual)
+{
+        if (actual != unexpected) {
+                return true;
+        } else {
+                return false;
+        }
+}
+
+bool softtest_check_complex_float_real(const float complex value)
+{
+        if (cimagf(value) == 0.0) {
+                return true;
+        } else {
+                return false;
+        }
+}
+
+bool softtest_check_complex_float_imaginary(const float complex value)
+{
+        if (crealf(value) == 0.0) {
+                return true;
+        } else {
+                return false;
+        }
+}
+
+/* double complex */
+bool softtest_check_complex_double_equals(const double complex expected,
+                                          const double complex actual)
+{
+        if (actual == expected) {
+                return true;
+        } else {
+                return false;
+        }
+}
+
+bool softtest_check_complex_double_not_equals(const double complex unexpected,
+                                              const double complex actual)
+{
+        if (actual != unexpected) {
+                return true;
+        } else {
+                return false;
+        }
+}
+
+bool softtest_check_complex_double_real(const double complex value)
+{
+        if (cimagf(value) == 0.0) {
+                return true;
+        } else {
+                return false;
+        }
+}
+
+bool softtest_check_complex_double_imaginary(const double complex value)
+{
+        if (crealf(value) == 0.0) {
+                return true;
+        } else {
+                return false;
+        }
+}
+
+/* long double complex */
+bool softtest_check_complex_long_double_equals(
+        const long double complex expected, const long double complex actual)
+{
+        if (actual == expected) {
+                return true;
+        } else {
+                return false;
+        }
+}
+
+bool softtest_check_complex_long_double_not_equals(
+        const long double complex unexpected, const long double complex actual)
+{
+        if (actual != unexpected) {
+                return true;
+        } else {
+                return false;
+        }
+}
+
+bool softtest_check_complex_long_double_real(const long double complex value)
+{
+        if (cimagf(value) == 0.0) {
+                return true;
+        } else {
+                return false;
+        }
+}
+
+bool softtest_check_complex_long_double_imaginary(
+        const long double complex value)
+{
+        if (crealf(value) == 0.0) {
+                return true;
+        } else {
+                return false;
+        }
+}
