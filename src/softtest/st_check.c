@@ -21,6 +21,7 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 #include "st_check.h"
+#include <math.h>
 
 /* char */
 bool softtest_check_char_equals(const char expected, const char actual)
@@ -572,6 +573,359 @@ bool softtest_check_unsigned_long_long_outside(const unsigned long long low,
                                                const unsigned long long actual)
 {
         if (actual < low || actual > high) {
+                return true;
+        } else {
+                return false;
+        }
+}
+
+/* float */
+bool softtest_check_float_equals(const float expected, const float actual)
+{
+        if (actual == expected) {
+                return true;
+        } else {
+                return false;
+        }
+}
+
+bool softtest_check_float_equals_delta(const float expected, const float actual,
+                                       const float delta)
+{
+        if (fabsf(actual - expected) <= delta) {
+                return true;
+        } else {
+                return false;
+        }
+}
+
+bool softtest_check_float_not_equals(const float unexpected, const float actual)
+{
+        if (actual != unexpected) {
+                return true;
+        } else {
+                return false;
+        }
+}
+
+bool softtest_check_float_greater_than(const float threshold,
+                                       const float actual)
+{
+        if (actual > threshold) {
+                return true;
+        } else {
+                return false;
+        }
+}
+
+bool softtest_check_float_greater_or_equals(const float threshold,
+                                            const float actual)
+{
+        if (actual >= threshold) {
+                return true;
+        } else {
+                return false;
+        }
+}
+
+bool softtest_check_float_less_than(const float threshold, const float actual)
+{
+        if (actual < threshold) {
+                return true;
+        } else {
+                return false;
+        }
+}
+
+bool softtest_check_float_less_or_equals(const float threshold,
+                                         const float actual)
+{
+        if (actual < threshold) {
+                return true;
+        } else {
+                return false;
+        }
+}
+
+bool softtest_check_float_finite(const float value)
+{
+        if (!isinf(value)) {
+                return true;
+        } else {
+                return false;
+        }
+}
+
+bool softtest_check_float_infinite(const float value)
+{
+        if (isinf(value)) {
+                return true;
+        } else {
+                return false;
+        }
+}
+
+bool softtest_check_float_nan(const float value)
+{
+        if (isnan(value)) {
+                return true;
+        } else {
+                return false;
+        }
+}
+
+bool softtest_check_float_within(const float low, const float high,
+                                 const float actual)
+{
+        if (actual >= low && actual < high) {
+                return true;
+        } else {
+                return false;
+        }
+}
+
+bool softtest_check_float_outside(const float low, const float high,
+                                  const float actual)
+{
+        if (actual < low || actual > high) {
+                return true;
+        } else {
+                return false;
+        }
+}
+
+/* double */
+bool softtest_check_double_equals(const double expected, const double actual)
+{
+        if (actual == expected) {
+                return true;
+        } else {
+                return false;
+        }
+}
+
+bool softtest_check_double_equals_delta(const double expected,
+                                        const double actual, const double delta)
+{
+        if (fabs(actual - expected) <= delta) {
+                return true;
+        } else {
+                return false;
+        }
+}
+
+bool softtest_check_double_not_equals(const double unexpected,
+                                      const double actual)
+{
+        if (actual != unexpected) {
+                return true;
+        } else {
+                return false;
+        }
+}
+
+bool softtest_check_double_greater_than(const double threshold,
+                                        const double actual)
+{
+        if (actual > threshold) {
+                return true;
+        } else {
+                return false;
+        }
+}
+
+bool softtest_check_double_greater_or_equals(const double threshold,
+                                             const double actual)
+{
+        if (actual >= threshold) {
+                return true;
+        } else {
+                return false;
+        }
+}
+
+bool softtest_check_double_less_than(const double threshold,
+                                     const double actual)
+{
+        if (actual < threshold) {
+                return true;
+        } else {
+                return false;
+        }
+}
+
+bool softtest_check_double_less_or_equals(const double threshold,
+                                          const double actual)
+{
+        if (actual < threshold) {
+                return true;
+        } else {
+                return false;
+        }
+}
+
+bool softtest_check_double_finite(const double value)
+{
+        if (!isinf(value)) {
+                return true;
+        } else {
+                return false;
+        }
+}
+
+bool softtest_check_double_infinite(const double value)
+{
+        if (isinf(value)) {
+                return true;
+        } else {
+                return false;
+        }
+}
+
+bool softtest_check_double_nan(const double value)
+{
+        if (isnan(value)) {
+                return true;
+        } else {
+                return false;
+        }
+}
+
+bool softtest_check_double_within(const double low, const double high,
+                                  const double actual)
+{
+        if (actual >= low && actual < high) {
+                return true;
+        } else {
+                return false;
+        }
+}
+
+bool softtest_check_double_outside(const double low, const double high,
+                                   const double actual)
+{
+        if (actual < low || actual > high) {
+                return true;
+        } else {
+                return false;
+        }
+}
+
+/* long double */
+bool softtest_check_long_double_equals(const long double expected,
+                                       const long double actual)
+{
+        if (actual == expected) {
+                return true;
+        } else {
+                return false;
+        }
+}
+
+bool softtest_check_long_double_equals_delta(const long double expected,
+                                             const long double actual,
+                                             const long double delta)
+{
+        if (fabs(actual - expected) <= delta) {
+                return true;
+        } else {
+                return false;
+        }
+}
+
+bool softtest_check_long_double_not_equals(const long double unexpected,
+                                           const long double actual)
+{
+        if (actual != unexpected) {
+                return true;
+        } else {
+                return false;
+        }
+}
+
+bool softtest_check_long_double_greater_than(const long double threshold,
+                                             const long double actual)
+{
+        if (actual > threshold) {
+                return true;
+        } else {
+                return false;
+        }
+}
+
+bool softtest_check_long_double_greater_or_equals(const long double threshold,
+                                                  const long double actual)
+{
+        if (actual >= threshold) {
+                return true;
+        } else {
+                return false;
+        }
+}
+
+bool softtest_check_long_double_less_than(const long double threshold,
+                                          const long double actual)
+{
+        if (actual < threshold) {
+                return true;
+        } else {
+                return false;
+        }
+}
+
+bool softtest_check_long_double_less_or_equals(const long double threshold,
+                                               const long double actual)
+{
+        if (actual < threshold) {
+                return true;
+        } else {
+                return false;
+        }
+}
+
+bool softtest_check_long_double_finite(const long double value)
+{
+        if (!isinf(value)) {
+                return true;
+        } else {
+                return false;
+        }
+}
+
+bool softtest_check_long_double_infinite(const long double value)
+{
+        if (isinf(value)) {
+                return true;
+        } else {
+                return false;
+        }
+}
+
+bool softtest_check_long_double_nan(const long double value)
+{
+        if (isnan(value)) {
+                return true;
+        } else {
+                return false;
+        }
+}
+
+bool softtest_check_long_double_within(const long double low,
+                                       const long double high,
+                                       const long double actual)
+{
+        if (actual >= low && actual < high) {
+                return true;
+        } else {
+                return false;
+        }
+}
+
+bool softtest_check_long_double_outside(const long double low,
+                                        const long double high,
+                                        const long double actual)
+{
+        if (actual < low || actual > high) {
                 return true;
         } else {
                 return false;

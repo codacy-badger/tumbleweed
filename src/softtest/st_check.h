@@ -209,3 +209,87 @@ bool softtest_check_unsigned_long_long_within(const unsigned long long low,
 bool softtest_check_unsigned_long_long_outside(const unsigned long long low,
                                                const unsigned long long high,
                                                const unsigned long long actual);
+
+/* float/double checks :
+ * following relations are available :
+ * - equals : '='
+ * - not equals : '!='
+ * - greater than : '>'
+ * - greater or equals: '>='
+ * - less than : '<'
+ * - less or equals : '<='
+ * - finite : !=Nan, <+INFINITY, >-INFINITY
+ * - infinite : =+INFINITY, =-INFINITY
+ * - nan : =NaN
+ * - within : '[]'
+ * - outside : ][
+ */
+
+/*float */
+bool softtest_check_float_equals(const float expected, const float actual);
+bool softtest_check_float_equals_delta(const float expected, const float actual,
+                                       const float delta);
+bool softtest_check_float_not_equals(const float unexpected,
+                                     const float actual);
+bool softtest_check_float_greater_than(const float threshold,
+                                       const float actual);
+bool softtest_check_float_greater_or_equals(const float threshold,
+                                            const float actual);
+bool softtest_check_float_less_than(const float threshold, const float actual);
+bool softtest_check_float_less_or_equals(const float threshold,
+                                         const float actual);
+bool softtest_check_float_finite(const float value);
+bool softtest_check_float_infinite(const float value);
+bool softtest_check_float_nan(const float value);
+bool softtest_check_float_within(const float low, const float high,
+                                 const float actual);
+bool softtest_check_float_outside(const float low, const float high,
+                                  const float actual);
+
+/*double */
+bool softtest_check_double_equals(const double expected, const double actual);
+bool softtest_check_double_equals_delta(const double expected,
+                                        const double actual,
+                                        const double delta);
+bool softtest_check_double_not_equals(const double unexpected,
+                                      const double actual);
+bool softtest_check_double_greater_than(const double threshold,
+                                        const double actual);
+bool softtest_check_double_greater_or_equals(const double threshold,
+                                             const double actual);
+bool softtest_check_double_less_than(const double threshold,
+                                     const double actual);
+bool softtest_check_double_less_or_equals(const double threshold,
+                                          const double actual);
+bool softtest_check_double_finite(const double value);
+bool softtest_check_double_infinite(const double value);
+bool softtest_check_double_nan(const double value);
+bool softtest_check_double_within(const double low, const double high,
+                                  const double actual);
+bool softtest_check_double_outside(const double low, const double high,
+                                   const double actual);
+/* long double */
+bool softtest_check_long_double_equals(const long double expected,
+                                       const long double actual);
+bool softtest_check_long_double_equals_delta(const long double expected,
+                                             const long double actual,
+                                             const long double delta);
+bool softtest_check_long_double_not_equals(const long double unexpected,
+                                           const long double actual);
+bool softtest_check_long_double_greater_than(const long double threshold,
+                                             const long double actual);
+bool softtest_check_long_double_greater_or_equals(const long double threshold,
+                                                  const long double actual);
+bool softtest_check_long_double_less_than(const long double threshold,
+                                          const long double actual);
+bool softtest_check_long_double_less_or_equals(const long double threshold,
+                                               const long double actual);
+bool softtest_check_long_double_finite(const long double value);
+bool softtest_check_long_double_infinite(const long double value);
+bool softtest_check_long_double_nan(const long double value);
+bool softtest_check_long_double_within(const long double low,
+                                       const long double high,
+                                       const long double actual);
+bool softtest_check_long_double_outside(const long double low,
+                                        const long double high,
+                                        const long double actual);
