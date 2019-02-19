@@ -3,24 +3,19 @@ AlignConsecutiveAssignments : true
 AlignEscapedNewlines : Right
 AlignOperands: true
 AllowAllParametersOfDeclarationOnNextLine : true
+AllowShortBlocksOnASingleLine : false
+AllowShortCaseLabelsOnASingleLine : false
 AllowShortFunctionsOnASingleLine : None
 AllowShortIfStatementsOnASingleLine: false
 AllowShortLoopsOnASingleLine : false
+AlwaysBreakAfterReturnType : None
+AlwaysBreakBeforeMultilineStrings : false
 BinPackArguments: true
 BinPackParameters: true
-#BreakBeforeBraces: Custom
-#BraceWrapping:
-#  AfterControlStatement: false
-#  AfterEnum: true
-#  AfterFunction: true
-#  AfterStruct: true
-#  AfterUnion:true
-#  BeforeElse:false
-#  SplitEmptyFunction: false
 BreakBeforeBraces: Linux
 BreakBeforeBinaryOperators: None
 BreakBeforeTernaryOperators : false
-ColumnLimit: 80
+ColumnLimit: 0
 ContinuationIndentWidth: 8
 IncludeBlocks: Merge
 IncludeCategories:
@@ -32,8 +27,8 @@ IndentCaseLabels: false
 IndentWidth: 8
 KeepEmptyLinesAtTheStartOfBlocks: false
 Language: Cpp
-#MaxEmptyLinesToKeep: 0
 PointerAlignment: Right
+ReflowComments : true
 SortIncludes: true
 SpaceAfterCStyleCast: false
 SpaceBeforeAssignmentOperators: true
