@@ -1110,7 +1110,7 @@ bool softtest_check_pointer_equals(const void *const expected,
 bool softtest_check_pointer_not_equals(const void *const unexpected,
                                        const void *const actual)
 {
-        if (actual != expected) {
+        if (actual != unexpected) {
                 return true;
         } else {
                 return false;
@@ -1118,9 +1118,9 @@ bool softtest_check_pointer_not_equals(const void *const unexpected,
 }
 
 bool softtest_check_pointer_greater_than(const void *const threshold,
-                                         const void *const actual);
+                                         const void *const actual)
 {
-        if (actual > expected) {
+        if (actual > threshold) {
                 return true;
         } else {
                 return false;
@@ -1128,9 +1128,9 @@ bool softtest_check_pointer_greater_than(const void *const threshold,
 }
 
 bool softtest_check_pointer_greater_or_equals(const void *const threshold,
-                                              const void *const actual);
+                                              const void *const actual)
 {
-        if (actual >= expected) {
+        if (actual >= threshold) {
                 return true;
         } else {
                 return false;
@@ -1138,9 +1138,9 @@ bool softtest_check_pointer_greater_or_equals(const void *const threshold,
 }
 
 bool softtest_check_pointer_less_than(const void *const threshold,
-                                      const void *const actual);
+                                      const void *const actual)
 {
-        if (actual < expected) {
+        if (actual < threshold) {
                 return true;
         } else {
                 return false;
@@ -1148,9 +1148,9 @@ bool softtest_check_pointer_less_than(const void *const threshold,
 }
 
 bool softtest_check_pointer_less_or_equals(const void *const threshold,
-                                           const void *const actual);
+                                           const void *const actual)
 {
-        if (actual <= expected) {
+        if (actual <= threshold) {
                 return true;
         } else {
                 return false;
@@ -1174,3 +1174,562 @@ bool softtest_check_pointer_not_null(const void *const pointer)
                 return false;
         }
 }
+
+/* arrays */
+bool softtest_check_array_char_equals(const char *expected, const char *actual, const int length)
+{
+        for (int i = 0; i < length; i++) {
+                if (actual[i] != expected[i]) {
+                        return false;
+                }
+        }
+        return true;
+}
+
+bool softtest_check_array_short_equals(const short *expected, const short *actual, const int length)
+{
+        for (int i = 0; i < length; i++) {
+                if (actual[i] != expected[i]) {
+                        return false;
+                }
+        }
+        return true;
+}
+
+bool softtest_check_array_int_equals(const int *expected, const int *actual, const int length)
+{
+        for (int i = 0; i < length; i++) {
+                if (actual[i] != expected[i]) {
+                        return false;
+                }
+        }
+        return true;
+}
+
+bool softtest_check_array_long_equals(const long *expected, const long *actual, const int length)
+{
+        for (int i = 0; i < length; i++) {
+                if (actual[i] != expected[i]) {
+                        return false;
+                }
+        }
+        return true;
+}
+
+bool softtest_check_array_long_long_equals(const long long *expected, const long long *actual, const int length)
+{
+        for (int i = 0; i < length; i++) {
+                if (actual[i] != expected[i]) {
+                        return false;
+                }
+        }
+        return true;
+}
+
+bool softtest_check_array_unsigned_char_equals(const unsigned char *expected, const unsigned char *actual, const int length)
+{
+        for (int i = 0; i < length; i++) {
+                if (actual[i] != expected[i]) {
+                        return false;
+                }
+        }
+        return true;
+}
+
+bool softtest_check_array_unsigned_short_equals(const unsigned short *expected, const unsigned short *actual, const int length)
+{
+        for (int i = 0; i < length; i++) {
+                if (actual[i] != expected[i]) {
+                        return false;
+                }
+        }
+        return true;
+}
+
+bool softtest_check_array_unsigned_int_equals(const unsigned int *expected, const unsigned int *actual, const int length)
+{
+        for (int i = 0; i < length; i++) {
+                if (actual[i] != expected[i]) {
+                        return false;
+                }
+        }
+        return true;
+}
+
+bool softtest_check_array_unsigned_long_equals(const unsigned long *expected, const unsigned long *actual, const int length)
+{
+        for (int i = 0; i < length; i++) {
+                if (actual[i] != expected[i]) {
+                        return false;
+                }
+        }
+        return true;
+}
+
+bool softtest_check_array_unsigned_long_long_equals(const unsigned long long *expected, const unsigned long long *actual, const int length)
+{
+        for (int i = 0; i < length; i++) {
+                if (actual[i] != expected[i]) {
+                        return false;
+                }
+        }
+        return true;
+}
+
+bool softtest_check_array_float_equals(const float *expected, const float *actual, const int length)
+{
+        for (int i = 0; i < length; i++) {
+                if (actual[i] != expected[i]) {
+                        return false;
+                }
+        }
+        return true;
+}
+
+bool softtest_check_array_double_equals(const double *expected, const double *actual, const int length)
+{
+        for (int i = 0; i < length; i++) {
+                if (actual[i] != expected[i]) {
+                        return false;
+                }
+        }
+        return true;
+}
+
+bool softtest_check_array_long_double_equals(const double *expected, const double *actual, const int length)
+{
+        for (int i = 0; i < length; i++) {
+                if (actual[i] != expected[i]) {
+                        return false;
+                }
+        }
+        return true;
+}
+
+bool softtest_check_array_complex_float_equals(const float complex *expected, const float complex *actual, const int length)
+{
+        for (int i = 0; i < length; i++) {
+                if (actual[i] != expected[i]) {
+                        return false;
+                }
+        }
+        return true;
+}
+
+bool softtest_check_array_complex_double_equals(const double complex *expected, const double complex *actual, const int length)
+{
+        for (int i = 0; i < length; i++) {
+                if (actual[i] != expected[i]) {
+                        return false;
+                }
+        }
+        return true;
+}
+
+bool softtest_check_array_complex_long_double_equals(const long double complex *expected, const long double complex *actual, const int length)
+{
+        for (int i = 0; i < length; i++) {
+                if (actual[i] != expected[i]) {
+                        return false;
+                }
+        }
+        return true;
+}
+
+bool softtest_check_array_bool_equals(const bool *expected, const bool *actual, const int length)
+{
+        for (int i = 0; i < length; i++) {
+                if (actual[i] != expected[i]) {
+                        return false;
+                }
+        }
+        return true;
+}
+
+bool softtest_check_array_pointer_equals(const void **expected, const void **actual, const int length)
+{
+        for (int i = 0; i < length; i++) {
+                if (actual[i] != expected[i]) {
+                        return false;
+                }
+        }
+        return true;
+}
+
+bool softtest_check_array_char_not_equals(const char *expected, const char *actual, const int length)
+{
+        for (int i = 0; i < length; i++) {
+                if (actual[i] != expected[i]) {
+                        return true;
+                }
+        }
+        return false;
+}
+
+bool softtest_check_array_short_not_equals(const short *expected, const short *actual, const int length)
+{
+        for (int i = 0; i < length; i++) {
+                if (actual[i] != expected[i]) {
+                        return true;
+                }
+        }
+        return false;
+}
+
+bool softtest_check_array_int_not_equals(const int *expected, const int *actual, const int length)
+{
+        for (int i = 0; i < length; i++) {
+                if (actual[i] != expected[i]) {
+                        return true;
+                }
+        }
+        return false;
+}
+
+bool softtest_check_array_long_not_equals(const long *expected, const long *actual, const int length)
+{
+        for (int i = 0; i < length; i++) {
+                if (actual[i] != expected[i]) {
+                        return true;
+                }
+        }
+        return false;
+}
+
+bool softtest_check_array_long_long_not_equals(const long long *expected, const long long *actual, const int length)
+{
+        for (int i = 0; i < length; i++) {
+                if (actual[i] != expected[i]) {
+                        return true;
+                }
+        }
+        return false;
+}
+
+bool softtest_check_array_unsigned_char_not_equals(const unsigned char *expected, const unsigned char *actual, const int length)
+{
+        for (int i = 0; i < length; i++) {
+                if (actual[i] != expected[i]) {
+                        return true;
+                }
+        }
+        return false;
+}
+
+bool softtest_check_array_unsigned_short_not_equals(const unsigned short *expected, const unsigned short *actual, const int length)
+{
+        for (int i = 0; i < length; i++) {
+                if (actual[i] != expected[i]) {
+                        return true;
+                }
+        }
+        return false;
+}
+
+bool softtest_check_array_unsigned_int_not_equals(const unsigned int *expected, const unsigned int *actual, const int length)
+{
+        for (int i = 0; i < length; i++) {
+                if (actual[i] != expected[i]) {
+                        return true;
+                }
+        }
+        return false;
+}
+
+bool softtest_check_array_unsigned_long_not_equals(const unsigned long *expected, const unsigned long *actual, const int length)
+{
+        for (int i = 0; i < length; i++) {
+                if (actual[i] != expected[i]) {
+                        return true;
+                }
+        }
+        return false;
+}
+
+bool softtest_check_array_unsigned_long_long_not_equals(const unsigned long long *expected, const unsigned long long *actual, const int length)
+{
+        for (int i = 0; i < length; i++) {
+                if (actual[i] != expected[i]) {
+                        return true;
+                }
+        }
+        return false;
+}
+
+bool softtest_check_array_float_not_equals(const float *expected, const float *actual, const int length)
+{
+        for (int i = 0; i < length; i++) {
+                if (actual[i] != expected[i]) {
+                        return true;
+                }
+        }
+        return false;
+}
+
+bool softtest_check_array_double_not_equals(const double *expected, const double *actual, const int length)
+{
+        for (int i = 0; i < length; i++) {
+                if (actual[i] != expected[i]) {
+                        return true;
+                }
+        }
+        return false;
+}
+
+bool softtest_check_array_long_double_not_equals(const double *expected, const double *actual, const int length)
+{
+        for (int i = 0; i < length; i++) {
+                if (actual[i] != expected[i]) {
+                        return true;
+                }
+        }
+        return false;
+}
+
+bool softtest_check_array_complex_float_not_equals(const float complex *expected, const float complex *actual, const int length)
+{
+        for (int i = 0; i < length; i++) {
+                if (actual[i] != expected[i]) {
+                        return true;
+                }
+        }
+        return false;
+}
+
+bool softtest_check_array_complex_double_not_equals(const double complex *expected, const double complex *actual, const int length)
+{
+        for (int i = 0; i < length; i++) {
+                if (actual[i] != expected[i]) {
+                        return true;
+                }
+        }
+        return false;
+}
+
+bool softtest_check_array_complex_long_double_not_equals(const long double complex *expected, const long double complex *actual, const int length)
+{
+        for (int i = 0; i < length; i++) {
+                if (actual[i] != expected[i]) {
+                        return true;
+                }
+        }
+        return false;
+}
+
+bool softtest_check_array_bool_not_equals(const bool *expected, const bool *actual, const int length)
+{
+        for (int i = 0; i < length; i++) {
+                if (actual[i] != expected[i]) {
+                        return true;
+                }
+        }
+        return false;
+}
+
+bool softtest_check_array_pointer_not_equals(const void **expected, const void **actual, const int length)
+{
+        for (int i = 0; i < length; i++) {
+                if (actual[i] != expected[i]) {
+                        return true;
+                }
+        }
+        return false;
+}
+
+bool softtest_check_array_char_each_equals(const char expected, const char *actual, const int length)
+{
+        for (int i = 0; i < length; i++) {
+                if (actual[i] != expected) {
+                        return false;
+                }
+        }
+        return true;
+}
+
+bool softtest_check_array_short_each_equals(const short expected, const short *actual, const int length)
+{
+        for (int i = 0; i < length; i++) {
+                if (actual[i] != expected) {
+                        return false;
+                }
+        }
+        return true;
+}
+
+bool softtest_check_array_int_each_equals(const int expected, const int *actual, const int length)
+{
+        for (int i = 0; i < length; i++) {
+                if (actual[i] != expected) {
+                        return false;
+                }
+        }
+        return true;
+}
+
+bool softtest_check_array_long_each_equals(const long expected, const long *actual, const int length)
+{
+        for (int i = 0; i < length; i++) {
+                if (actual[i] != expected) {
+                        return false;
+                }
+        }
+        return true;
+}
+
+bool softtest_check_array_long_long_each_equals(const long long expected, const long long *actual, const int length)
+{
+        for (int i = 0; i < length; i++) {
+                if (actual[i] != expected) {
+                        return false;
+                }
+        }
+        return true;
+}
+
+bool softtest_check_array_unsigned_char_each_equals(const unsigned char expected, const unsigned char *actual, const int length)
+{
+        for (int i = 0; i < length; i++) {
+                if (actual[i] != expected) {
+                        return false;
+                }
+        }
+        return true;
+}
+
+bool softtest_check_array_unsigned_short_each_equals(const unsigned short expected, const unsigned short *actual, const int length)
+{
+        for (int i = 0; i < length; i++) {
+                if (actual[i] != expected) {
+                        return false;
+                }
+        }
+        return true;
+}
+
+bool softtest_check_array_unsigned_int_each_equals(const unsigned int expected, const unsigned int *actual, const int length)
+{
+        for (int i = 0; i < length; i++) {
+                if (actual[i] != expected) {
+                        return false;
+                }
+        }
+        return true;
+}
+
+bool softtest_check_array_unsigned_long_each_equals(const unsigned long expected, const unsigned long *actual, const int length)
+{
+        for (int i = 0; i < length; i++) {
+                if (actual[i] != expected) {
+                        return false;
+                }
+        }
+        return true;
+}
+
+bool softtest_check_array_unsigned_long_long_each_equals(const unsigned long long expected, const unsigned long long *actual, const int length)
+{
+        for (int i = 0; i < length; i++) {
+                if (actual[i] != expected) {
+                        return false;
+                }
+        }
+        return true;
+}
+
+bool softtest_check_array_float_each_equals(const float expected, const float *actual, const int length)
+{
+        for (int i = 0; i < length; i++) {
+                if (actual[i] != expected) {
+                        return false;
+                }
+        }
+        return true;
+}
+
+bool softtest_check_array_double_each_equals(const double expected, const double *actual, const int length)
+{
+        for (int i = 0; i < length; i++) {
+                if (actual[i] != expected) {
+                        return false;
+                }
+        }
+        return true;
+}
+
+bool softtest_check_array_long_double_each_equals(const double expected, const double *actual, const int length)
+{
+        for (int i = 0; i < length; i++) {
+                if (actual[i] != expected) {
+                        return false;
+                }
+        }
+        return true;
+}
+
+bool softtest_check_array_complex_float_each_equals(const float complex expected, const float complex *actual, const int length)
+{
+        for (int i = 0; i < length; i++) {
+                if (actual[i] != expected) {
+                        return false;
+                }
+        }
+        return true;
+}
+
+bool softtest_check_array_complex_double_each_equals(const double complex expected, const double complex *actual, const int length)
+{
+        for (int i = 0; i < length; i++) {
+                if (actual[i] != expected) {
+                        return false;
+                }
+        }
+        return true;
+}
+
+bool softtest_check_array_complex_long_double_each_equals(const long double complex expected, const long double complex *actual, const int length)
+{
+        for (int i = 0; i < length; i++) {
+                if (actual[i] != expected) {
+                        return false;
+                }
+        }
+        return true;
+}
+
+bool softtest_check_array_bool_each_equals(const bool expected, const bool *actual, const int length)
+{
+        for (int i = 0; i < length; i++) {
+                if (actual[i] != expected) {
+                        return false;
+                }
+        }
+        return true;
+}
+
+bool softtest_check_array_pointer_each_equals(const void *expected, const void **actual, const int length)
+{
+        for (int i = 0; i < length; i++) {
+                if (actual[i] != expected) {
+                        return false;
+                }
+        }
+        return true;
+}
+
+/* strings */
+bool softtest_check_string_equals(const char *expected, const char *actual)
+{
+        if (strcmp(actual, expected) == 0) {
+                return true;
+        }
+        return false;
+}
+
+bool softtest_check_string_equals_length(const char *expected, const char *actual, size_t length)
+{
+        if (strncmp(actual, expected, length) == 0) {
+                return true;
+        }
+        return false;
+}
+
