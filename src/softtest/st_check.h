@@ -20,6 +20,9 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE
 OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
+#ifndef ST_CHECK_H
+#define ST_CHECK_H
+
 /* st_check.h : Provides a set of functions for checking a relation between an
  * actual value and specified reference value(s)
  */
@@ -322,3 +325,5 @@ bool softtest_check_array_pointer_each_equals(const void *expected, const void *
  */
 bool softtest_check_string_equals(const char *expected, const char *actual);
 bool softtest_check_string_equals_length(const char *expected, const char *actual, size_t length);
+
+#endif /* ifndef ST_CHECK_H */

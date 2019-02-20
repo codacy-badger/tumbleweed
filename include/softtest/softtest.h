@@ -19,30 +19,6 @@ DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
 TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE
 OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
-
-#include "softtest_internals.h"
-
-#define SOFTTEST_START() softtestStart()
-#define SOFTTEST_RUN_TEST(test) softtestRunTest(test, __FILE__, #test, __LINE__)
-#define SOFTTEST_END() softtestEnd()
-#define SOFTTEST_PASS() softtestPass()
-#define SOFTTEST_FAIL(...)                                                     \
-        softtestFail(__FILE__, __func__, __LINE__, __VA_ARGS__)
-
-#define ST_ASSERT(expression)                                                  \
-        softtestAssert(expression, #expression, __FILE__, __func__, __LINE__)
-#define ST_ASSERT_TRUE(condition)                                              \
-        softtestAssertTrue(condition, __FILE__, __func__, __LINE__)
-#define ST_ASSERT_FALSE(condition)                                             \
-        softtestAssertFalse(condition, __FILE__, __func__, __LINE__)
-#define ST_ASSERT_INT_EQUALS(expected, actual)                                 \
-        softtestAssertIntEquals(expected, actual, __FILE__, __func__, __LINE__)
-#define ST_ASSERT_INT_NOT_EQUALS(unexpected, actual)                           \
-        softtestAssertIntNotEquals(unexpected, actual, __FILE__, __func__,     \
-                                   __LINE__)
-#define ST_ASSERT_INT_GREATER_THAN(threshold, actual)                          \
-        softtestAssertIntGreaterThan(threshold, actual, __FILE__, __func__,    \
-                                     __LINE__)
-#define ST_ASSERT_INT_GREATER_OR_EQUALS(threshold, actual)                     \
-        softtestAssertIntGreaterOrEquals(threshold, actual, __FILE__,          \
-                                         __func__, __LINE__)
+void softtest_start(void);
+void softtest_test(void (*test)(void), const char *file, const char *function, const int line);
+int softtest_end(void);

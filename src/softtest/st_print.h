@@ -19,28 +19,15 @@ DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
 TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE
 OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
-#ifndef ST_UNITTEST_H
-#define ST_UNITTEST_H
+#ifndef ST_PRINT_H
+#define ST_PRINT_H
+#include <stdarg.h>
+#include "st_assertion.h"
+#include "st_unittest.h"
 
-#include <stdbool.h>
-#include <time.h>
-
-struct UnitTest {
-        const char *file;
-        const char *func;
-        int line;
-        bool passed;
-        bool finished;
-        bool exit;
-        struct timespec start;
-        struct timespec end;
-};
-
-struct UnitTest softtest_init_unit_test(const char *file, const char *func, const int line);
-void softtest_set_current_unit_test(struct UnitTest *unittest);
-struct UnitTest *softtest_get_current_unit_test(void);
-void softtest_end_unit_test(struct UnitTest *unittest);
-double softtest_unit_test_elapsed_time(struct UnitTest *unittest);
-void softtest_unit_test_mark_failed(struct UnitTest *unittest);
-bool softtest_unit_test_passed(struct UnitTest *unittest);
-#endif /* ST_UNITTEST_H */
+void softtest_print_start(void);
+void softtest_print_start_test(struct UnitTest *unittest);
+void softtest_print_end_test(struct UnitTest *unitest);
+void softtest_print_summary(const int total, const int passed, const int failed);
+void softtest_print_assertion_failed(struct Assertion *assertion, const char *format, va_list argp);
+#endif /* ST_PRINT_H */

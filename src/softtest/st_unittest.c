@@ -22,7 +22,7 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #include "st_unittest.h"
 
-static UnitTest *current;
+static struct UnitTest *current;
 
 struct UnitTest softtest_init_unit_test(const char *file, const char *func, const int line)
 {
@@ -32,8 +32,9 @@ struct UnitTest softtest_init_unit_test(const char *file, const char *func, cons
         unittest.line     = line;
         unittest.passed   = true;
         unittest.exit     = false;
-        unitTest.finished = false;
-        timespec_get(unittest.start, TIME_UTC);
+        unittest.finished = false;
+        timespec_get(&unittest.start, TIME_UTC);
+        return unittest;
 }
 
 void softtest_set_current_unit_test(struct UnitTest *unittest)
@@ -48,17 +49,23 @@ struct UnitTest *softtest_get_current_unit_test(void)
 
 void softtest_end_unit_test(struct UnitTest *unittest)
 {
-        timespec_get(unittest->end, TIME_UTC);
-        unittest.finished = true;
+        timespec_get(&unittest->end, TIME_UTC);
+        unittest->finished = true;
 }
 
 double softtest_unit_test_elapsed_time(struct UnitTest *unittest)
 {
-        if (unittest.finished) {
-                double elapsed = (unittest.end.tv_sec - unittest.start.tv_sec) +
-                                 (unittest.end.tv_nsec - unittest.start.tv_nsec) / 1.0E9;
+        if (unittest->finished) {
+                double elapsed = (unittest->end.tv_sec - unittest->start.tv_sec) +
+                                 (unittest->end.tv_nsec - unittest->start.tv_nsec) / 1.0E9;
                 return elapsed;
         } else {
-                return -1
+                return -1;
         }
 }
+
+void softtest_unit_test_mark_failed(struct UnitTest *unittest)
+{
+        unittest->passed = false;
+}
+
