@@ -1,0 +1,17 @@
+dist: xenial
+
+matrix: 
+        include:
+                - language: c
+                  compiler: clang
+                  install:
+                          - make test
+                  script:
+                          - ./build/softtest/test
+                - language: c
+                  compiler: gcc
+                  install:
+                          - make test
+                  script:
+                          - ./build/softtest/test
+
