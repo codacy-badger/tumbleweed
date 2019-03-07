@@ -30,11 +30,13 @@ PATH_INC = include
 PATH_SRC = src
 PATH_TEST = test
 # phony
-.PHONY: all test clean
+.PHONY: all test run clean
 # rules
 all: softtest
 
 test: test-softtest
+
+run: run-softtest
 
 clean: 
 	$(RM) -r $(PATH_BUILD)
@@ -80,7 +82,7 @@ SOFTTEST_SRC = $(wildcard $(SOFTTEST_PATH)/*.c)
 SOFTTEST_OBJ = $(SOFTTEST_SRC:$(SOFTTEST_PATH)/%.c=$(SOFTTEST_BUILD)/%.o)
 SOFTTEST_TEST = $(wildcard $(SOFTTEST_PATH_TEST)/*.c)
 # phony
-.PHONY: softtest test-softtest clean-softtest
+.PHONY: softtest test-softtest run-softtest clean-softtest
 # rules
 softtest: $(SOFTTEST_OBJ)
 
@@ -91,6 +93,9 @@ $(SOFTTEST_BUILD)/%.o: $(SOFTTEST_PATH)/%.c
 test-softtest: $(SOFTTEST_TEST)
 	$(MKDIR) $(SOFTTEST_BUILD)
 	$(CC) $(SOFTTEST_FLAGS_TEST) $(SOFTTEST_SRC) $(SOFTTEST_TEST) -o $(SOFTTEST_BUILD)/test
+
+run-softtest: test-softtest
+	$(SOFTTEST_BUILD)/test
 
 clean-softtest: 
 	$(RM) -r $(SOFTTEST_BUILD)

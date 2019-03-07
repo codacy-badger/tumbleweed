@@ -24,16 +24,17 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 int main(void)
 {
-        SOFTTEST_START();
-        SOFTTEST_RUN_TEST(softtestCheckTrue_True);
-        SOFTTEST_RUN_TEST(softtestCheckTrue_False);
-        SOFTTEST_RUN_TEST(softtestCheckFalse_False);
-        SOFTTEST_RUN_TEST(softtestCheckFalse_True);
-        SOFTTEST_RUN_TEST(softtestCheckIntEquals_False);
-        SOFTTEST_RUN_TEST(softtestCheckIntEquals_True);
-        SOFTTEST_RUN_TEST(softtestCheckIntNotEquals_True);
-        SOFTTEST_RUN_TEST(softtestCheckIntNotEquals_False);
-        SOFTTEST_RUN_TEST(softtestCheckIntGreaterThan_True);
-        SOFTTEST_RUN_TEST(softtestCheckIntGreaterThan_False);
-        return SOFTTEST_END();
+        ST_START();
+        ST_TEST(check_true);
+        ST_TEST(check_false);
+        ST_TEST(check_char_equals);
+        ST_TEST(check_char_not_equals);
+        ST_TEST(check_char_greater_than);
+        ST_TEST(check_char_greater_or_equals);
+        ST_TEST(check_char_less_than);
+        ST_TEST(check_char_less_or_equals);
+        ST_TEST(check_char_within);
+        ST_TEST(check_char_outside);
+        return ST_END();
 }
+

@@ -28,11 +28,35 @@ void softtest_assertion_failed(struct Assertion *assertion, const char *format, 
 }
 
 /* assertions */
+void softtest_assert_true(const bool condition, const char *file, const char *function, const int line)
+{
+        struct Assertion assertion = softtest_assertion_start(file, function, line);
+        if (assertion.unittest->exit) {
+                return;
+        }
+        if (!softtest_check_bool_true(condition)) {
+                softtest_assertion_failed(&assertion, "expected true but was false");
+        }
+}
+
 void softtest_assert_int_equals(const int expected, const int actual, const char *file, const char *function, const int line)
 {
         struct Assertion assertion = softtest_assertion_start(file, function, line);
+        if (assertion.unittest->exit) {
+                return;
+        }
         if (!softtest_check_int_equals(expected, actual)) {
                 softtest_assertion_failed(&assertion, "expected %d but was %d", expected, actual);
         }
 }
 
+void softtest_assert_false(const bool condition, const char *file, const char *function, const int line)
+{
+        struct Assertion assertion = softtest_assertion_start(file, function, line);
+        if (assertion.unittest->exit) {
+                return;
+        }
+        if (!softtest_check_bool_false(condition)) {
+                softtest_assertion_failed(&assertion, "expected false but was true");
+        }
+}

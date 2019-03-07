@@ -21,19 +21,22 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 #include "st_unittest.h"
+#include <stdlib.h>
 
 static struct UnitTest *current;
 
-struct UnitTest softtest_init_unit_test(const char *file, const char *func, const int line)
+struct UnitTest *softtest_init_unit_test(const char *file, const char *func, const int line)
 {
-        struct UnitTest unittest;
-        unittest.file     = file;
-        unittest.func     = func;
-        unittest.line     = line;
-        unittest.passed   = true;
-        unittest.exit     = false;
-        unittest.finished = false;
-        timespec_get(&unittest.start, TIME_UTC);
+        struct UnitTest *unittest = malloc(sizeof(unittest));
+        if (unittest) {
+                unittest->file     = file;
+                unittest->func     = func;
+                unittest->line     = line;
+                unittest->passed   = true;
+                unittest->exit     = false;
+                unittest->finished = false;
+                timespec_get(&unittest->start, TIME_UTC);
+        }
         return unittest;
 }
 
@@ -51,6 +54,12 @@ void softtest_end_unit_test(struct UnitTest *unittest)
 {
         timespec_get(&unittest->end, TIME_UTC);
         unittest->finished = true;
+}
+
+void softtest_free_unit_test(struct UnitTest *unitest)
+{
+        free(unitest);
+        current = NULL;
 }
 
 double softtest_unit_test_elapsed_time(struct UnitTest *unittest)

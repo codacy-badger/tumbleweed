@@ -49,6 +49,7 @@ void softtest_end_test(void);
 
 void softtest_start(void)
 {
+        softtest_print_start();
         softtest.total  = 0;
         softtest.passed = 0;
         softtest.failed = 0;
@@ -64,14 +65,23 @@ void softtest_test(void (*test)(void), const char *file, const char *function,
 
 void softtest_start_test(const char *file, const char *function, const int line)
 {
-        struct UnitTest unittest = softtest_init_unit_test(file, function, line);
-        softtest_set_current_unit_test(&unittest);
+        softtest.total++;
+        struct UnitTest *unittest = softtest_init_unit_test(file, function, line);
+        softtest_set_current_unit_test(unittest);
+        softtest_print_start_test(unittest);
 }
 
 void softtest_end_test(void)
 {
         struct UnitTest *unittest = softtest_get_current_unit_test();
         softtest_end_unit_test(unittest);
+        if (unittest->passed) {
+                softtest.passed++;
+        } else {
+                softtest.failed++;
+        }
+        softtest_print_end_test(unittest);
+        softtest_free_unit_test(unittest);
 }
 
 int softtest_end(void)
@@ -80,180 +90,3 @@ int softtest_end(void)
         return softtest.failed;
 }
 
-/* int softtest_end(void) */
-/* { */
-/*         printf("\n"); */
-/*         printf("%s\n", softtestDelimiterString); */
-/*         printf(BOLD BLUE "summary:" RESET "\n"); */
-/*         printf("total  = %d\n", softtest.total); */
-/*         printf(GREEN "passed" RESET " = %d ", softtest.passed); */
-/*         printf("[%3.0f%%]\n", 100.0 * softtest.passed / */
-/*                                       softtest.total); */
-/*         printf(RED "failed" RESET " = %d ", softtest.failed); */
-/*         printf("[%3.0f%%]\n", 100.0 * softtest.failed / */
-/*                                       softtest.total); */
-/*         printf("%s\n", softtestDelimiterString); */
-/*         return softtest.failed; */
-/* } */
-
-/* void softtestSuccess(void) */
-/* { */
-/*         printf("[" BOLD GREEN "%s" RESET "]", softtestPassedString); */
-/*         printf(" "); */
-/*         double elapsed = (softtest_status.end_time.tv_sec - */
-/*                           softtest_status.start_time.tv_sec) + */
-/*                          (softtest_status.end_time.tv_nsec - */
-/*                           softtest_status.start_time.tv_nsec) / */
-/*                                  1.0E9; */
-/*         printf("[%.9f s]", elapsed); */
-/*         printf(" "); */
-/*         printf(BOLD "%s::%d" RESET " -> %s\n", softtest_status.actual_test_file, */
-/*                softtest_status.actual_test_line, */
-/*                softtest_status.actual_test_name); */
-/* } */
-
-/* void softtestFailure(void) */
-/* { */
-/*         timespec_get(&softtest_status.end_time, TIME_UTC); */
-/*         softtest_status.actual_test_passed = false; */
-/*         printf("[" BOLD RED "%s" RESET "]", softtestFailedString); */
-/*         printf(" "); */
-/*         double elapsed = (softtest_status.end_time.tv_sec - */
-/*                           softtest_status.start_time.tv_sec) + */
-/*                          (softtest_status.end_time.tv_nsec - */
-/*                           softtest_status.start_time.tv_nsec) / */
-/*                                  1.0E9; */
-/*         printf("[%.9f s]", elapsed); */
-/*         printf(" "); */
-/*         printf(BOLD "%s::%d" RESET " -> %s\n", softtest_status.actual_test_file, */
-/*                softtest_status.actual_test_line, */
-/*                softtest_status.actual_test_name); */
-/* } */
-
-/* int softtestEnd(void) */
-/* { */
-/*         printf("\n"); */
-/*         printf("%s\n", softtestDelimiterString); */
-/*         printf(BOLD BLUE "summary:" RESET "\n"); */
-/*         printf("total  = %d\n", softtest_status.total_tests); */
-/*         printf(GREEN "passed" RESET " = %d ", softtest_status.passed_tests); */
-/*         printf("[%3.0f%%]\n", 100.0 * softtest_status.passed_tests / */
-/*                                       softtest_status.total_tests); */
-/*         printf(RED "failed" RESET " = %d ", softtest_status.failed_tests); */
-/*         printf("[%3.0f%%]\n", 100.0 * softtest_status.failed_tests / */
-/*                                       softtest_status.total_tests); */
-/*         printf("%s\n", softtestDelimiterString); */
-/*         return softtest_status.failed_tests; */
-/* } */
-
-/* void softtestPass(void) */
-/* { */
-/*         softtest_status.actual_test_fast_end = true; */
-/* } */
-
-/* void softtestFail(const char *file, const char *function, const int line, ...) */
-/* { */
-/*         softtestFailure(); */
-/*         printf("%*c" BOLD "%s::%s::%d " RESET "-> ", 7, ' ', file, function, */
-/*                line); */
-/*         softtest_status.actual_test_fast_end = true; */
-/*         va_list arg; */
-/*         va_start(arg, line); */
-/*         char *format = va_arg(arg, char *); */
-/*         vprintf(format, arg); */
-/*         va_end(arg); */
-/*         printf("\n"); */
-/* } */
-
-/* void softtestAssertionFailed(const char *file, const char *function, */
-/*                              const int line, const char *format, ...) */
-/* { */
-/*         softtestFailure(); */
-/*         printf("%*c" BOLD "%s::%s::%d " RESET "-> ", 7, ' ', file, function, */
-/*                line); */
-/*         va_list arg; */
-/*         va_start(arg, format); */
-/*         vprintf(format, arg); */
-/*         va_end(arg); */
-/*         printf("\n"); */
-/* } */
-
-/* void softtestAssert(const int condition, const char *expression, */
-/*                     const char *file, const char *function, const int line) */
-/* { */
-/*         RETURN_IF_FAST_END; */
-/*         if (!condition) { */
-/*                 softtestAssertionFailed(file, function, line, */
-/*                                         "%s evaluated to false", expression); */
-/*         } */
-/* } */
-
-/* void softtestAssertTrue(const bool condition, const char *file, */
-/*                         const char *function, const int line) */
-/* { */
-/*         RETURN_IF_FAST_END; */
-/*         if (!softtestCheckTrue(condition)) { */
-/*                 softtestAssertionFailed(file, function, line, */
-/*                                         "expected true was false"); */
-/*         } */
-/* } */
-
-/* void softtestAssertFalse(const bool condition, const char *file, */
-/*                          const char *function, const int line) */
-/* { */
-/*         RETURN_IF_FAST_END; */
-/*         if (!softtestCheckFalse(condition)) { */
-/*                 softtestAssertionFailed(file, function, line, */
-/*                                         "expected false was true"); */
-/*         } */
-/* } */
-
-/* void softtestAssertIntEquals(const int expected, const int actual, */
-/*                              const char *file, const char *function, */
-/*                              const int line) */
-/* { */
-/*         RETURN_IF_FAST_END; */
-/*         if (!softtestCheckIntEquals(expected, actual)) { */
-/*                 softtestAssertionFailed(file, function, line, */
-/*                                         "expected (int) %d was %d", expected, */
-/*                                         actual); */
-/*         } */
-/* } */
-
-/* void softtestAssertIntNotEquals(const int unexpected, const int actual, */
-/*                                 const char *file, const char *function, */
-/*                                 const int line) */
-/* { */
-/*         RETURN_IF_FAST_END; */
-/*         if (!softtestCheckIntNotEquals(unexpected, actual)) { */
-/*                 softtestAssertionFailed(file, function, line, */
-/*                                         "expected (int) %d not equals %d", */
-/*                                         actual, unexpected); */
-/*         } */
-/* } */
-
-/* void softtestAssertIntGreaterThan(const int threshold, const int actual, */
-/*                                   const char *file, const char *function, */
-/*                                   const int line) */
-/* { */
-/*         RETURN_IF_FAST_END; */
-/*         if (!softtestCheckIntGreaterThan(threshold, actual)) { */
-/*                 softtestAssertionFailed( */
-/*                         file, function, line, */
-/*                         "expected %d greater than %d but was false", actual, */
-/*                         threshold); */
-/*         } */
-/* } */
-
-/* void softtestAssertIntGreaterOrEquals(const int threshold, const int actual, */
-/*                                       const char *file, const char *function, */
-/*                                       const int line) */
-/* { */
-/*         RETURN_IF_FAST_END; */
-/*         if (!softtestCheckIntGreaterOrEquals(threshold, actual)) { */
-/*                 softtestAssertionFailed( */
-/*                         file, function, line, */
-/*                         "expected %d greater or equals %d but was false", */
-/*                         actual, threshold); */
-/*         } */
-/* } */

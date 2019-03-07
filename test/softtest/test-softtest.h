@@ -20,18 +20,15 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE
 OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#include "check.h"
 #include "softtest/softtest.h"
 
-void assert_true(void);
-void assert_false(void);
-void softtestCheckTrue_True(void);
-void softtestCheckTrue_False(void);
-void softtestCheckFalse_False(void);
-void softtestCheckFalse_True(void);
-void softtestCheckIntEquals_False(void);
-void softtestCheckIntEquals_True(void);
-void softtestCheckIntNotEquals_True(void);
-void softtestCheckIntNotEquals_False(void);
-void softtestCheckIntGreaterThan_True(void);
-void softtestCheckIntGreaterThan_False(void);
+void check_char_equals(void);
+void check_char_not_equals(void);
+void check_char_greater_than(void);
+void check_char_greater_or_equals(void);
+void check_char_less_than(void);
+void check_char_less_or_equals(void);
+void check_char_within(void);
+void check_char_outside(void);
+void check_true(void);
+void check_false(void);
