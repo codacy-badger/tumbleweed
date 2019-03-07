@@ -36,8 +36,8 @@ struct UnitTest {
         struct timespec end;
 };
 
-struct UnitTest *softtest_init_unit_test(const char *file, const char *func, const int line);
-void softtest_free_unit_test(struct UnitTest *unitest);
+struct UnitTest softtest_init_unit_test(const char *file, const char *func, const int line);
+void softtest_free_unit_test(struct UnitTest *unittest);
 void softtest_set_current_unit_test(struct UnitTest *unittest);
 struct UnitTest *softtest_get_current_unit_test(void);
 void softtest_end_unit_test(struct UnitTest *unittest);

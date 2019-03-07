@@ -35,6 +35,7 @@ struct Softtest {
         int total;
         int passed;
         int failed;
+        struct UnitTest unittest;
 };
 
 static struct Softtest softtest;
@@ -66,22 +67,21 @@ void softtest_test(void (*test)(void), const char *file, const char *function,
 void softtest_start_test(const char *file, const char *function, const int line)
 {
         softtest.total++;
-        struct UnitTest *unittest = softtest_init_unit_test(file, function, line);
-        softtest_set_current_unit_test(unittest);
-        softtest_print_start_test(unittest);
+        struct UnitTest unittest = softtest_init_unit_test(file, function, line);
+        softtest.unittest        = unittest;
+        softtest_set_current_unit_test(&softtest.unittest);
+        softtest_print_start_test(&unittest);
 }
 
 void softtest_end_test(void)
 {
-        struct UnitTest *unittest = softtest_get_current_unit_test();
-        softtest_end_unit_test(unittest);
-        if (unittest->passed) {
+        softtest_end_unit_test(&softtest.unittest);
+        if (softtest.unittest.passed) {
                 softtest.passed++;
         } else {
                 softtest.failed++;
         }
-        softtest_print_end_test(unittest);
-        softtest_free_unit_test(unittest);
+        softtest_print_end_test(&softtest.unittest);
 }
 
 int softtest_end(void)

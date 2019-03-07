@@ -56,3 +56,6 @@ build
 
 # compilation flags/commands database
 compile_commands.json
+
+# ctags
+tags
