@@ -4,16 +4,12 @@ matrix:
         include:
                 - language: c
                   compiler: clang
-                  install:
-                          - make test
                   script:
-                          - ./build/softtest/test
+                          - make run
                 - language: c
                   compiler: gcc
-                  install:
-                          - make test
                   script:
-                          - ./build/softtest/test
+                          - make run
                 - language: c
                   compiler: gcc
                   script:
