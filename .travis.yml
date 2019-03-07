@@ -14,4 +14,10 @@ matrix:
                           - make test
                   script:
                           - ./build/softtest/test
+                - language: c
+                  compiler: gcc
+                  script:
+                          - make cov
+                  after_success:
+                          - bash <(curl -s https://codecov.io/bash)
 

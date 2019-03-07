@@ -30,7 +30,7 @@ PATH_INC = include
 PATH_SRC = src
 PATH_TEST = test
 # phony
-.PHONY: all test run clean
+.PHONY: all test run cov clean
 # rules
 all: softtest
 
@@ -38,6 +38,7 @@ test: test-softtest
 
 run: run-softtest
 
+cov: run-cov-softtest
 clean: 
 	$(RM) -r $(PATH_BUILD)
 
@@ -53,7 +54,7 @@ MKDIR = mkdir -p
 ##################################### C ########################################
 ################################################################################
 # C compiler
-CC ?= gcc
+CC = gcc
 # compilation flags
 CFLAGS = -std=c11
 CFLAGS += -pedantic
@@ -62,6 +63,14 @@ CFLAGS += -Wextra
 CFLAGS += -Werror
 CFLAGS += -I$(PATH_INC)
 
+
+################################################################################
+##################################### Coverage #################################
+################################################################################
+# Coverage tool
+COV = gcov
+# coverage compilation flags
+COVFLAGS = --coverage 
 ################################################################################
 ##################################### Softtest #################################
 ################################################################################
@@ -71,31 +80,55 @@ SOFTTEST_FLAGS += -O2
 SOFTTEST_FLAGS_TEST = $(CFLAGS)
 SOFTTEST_FLAGS_TEST += -O0
 SOFTTEST_FLAGS_TEST += -g
-SOFTTEST_FLAGS_TEST += -I$(PATH_INC)
 SOFTTEST_FLAGS_TEST += -I$(SOFTTEST_PATH)
+SOFTTEST_FLAGS_COV = $(SOFTTEST_FLAGS_TEST)
+SOFTTEST_FLAGS_COV += -fprofile-arcs
+SOFTTEST_FLAGS_COV += -ftest-coverage
 # paths
 SOFTTEST_PATH = $(PATH_SRC)/softtest
-SOFTTEST_BUILD = $(PATH_BUILD)/softtest
 SOFTTEST_PATH_TEST = $(PATH_TEST)/softtest
+SOFTTEST_BUILD = $(PATH_BUILD)/softtest
+SOFTTEST_BUILD_OBJ = $(SOFTTEST_BUILD)/objects
+SOFTTEST_BUILD_OBJ_SRC = $(SOFTTEST_BUILD_OBJ)/src
+SOFTTEST_BUILD_OBJ_TEST = $(SOFTTEST_BUILD_OBJ)/test
+SOFTTEST_BUILD_EXEC = $(SOFTTEST_BUILD)/exec
 #files
 SOFTTEST_SRC = $(wildcard $(SOFTTEST_PATH)/*.c)
-SOFTTEST_OBJ = $(SOFTTEST_SRC:$(SOFTTEST_PATH)/%.c=$(SOFTTEST_BUILD)/%.o)
+SOFTTEST_OBJ = $(SOFTTEST_SRC:$(SOFTTEST_PATH)/%.c=$(SOFTTEST_BUILD_OBJ_SRC)/%.o)
 SOFTTEST_TEST = $(wildcard $(SOFTTEST_PATH_TEST)/*.c)
+SOFTTEST_TEST_OBJ = $(SOFTTEST_TEST:$(SOFTTEST_PATH_TEST)/%.c=$(SOFTTEST_BUILD_OBJ_TEST)/%.o)
 # phony
-.PHONY: softtest test-softtest run-softtest clean-softtest
+.PHONY: softtest test-softtest run-softtest cov-softtest clean-softtest
 # rules
+softtest: FLAGS = $(SOFTTEST_FLAGS)
 softtest: $(SOFTTEST_OBJ)
 
-$(SOFTTEST_BUILD)/%.o: $(SOFTTEST_PATH)/%.c
-	$(MKDIR) $(@D)
-	$(CC) $(SOFTTEST_FLAGS) -c $< -o $@
+test-softtest: FLAGS = $(SOFTTEST_FLAGS_TEST)
+test-softtest: FLAGS_TEST = $(SOFTTEST_FLAGS_TEST)
+test-softtest: $(SOFTTEST_OBJ) $(SOFTTEST_TEST_OBJ)
+	$(MKDIR) $(SOFTTEST_BUILD_EXEC)
+	$(CC) $(CFLAGS) -I$(SOFTTEST_PATH)  $(SOFTTEST_OBJ) $(SOFTTEST_TEST_OBJ) -o $(SOFTTEST_BUILD_EXEC)/test
 
-test-softtest: $(SOFTTEST_TEST)
-	$(MKDIR) $(SOFTTEST_BUILD)
-	$(CC) $(SOFTTEST_FLAGS_TEST) $(SOFTTEST_SRC) $(SOFTTEST_TEST) -o $(SOFTTEST_BUILD)/test
+cov-softtest: FLAGS = $(SOFTTEST_FLAGS_COV)
+cov-softtest: FLAGS_TEST = $(SOFTTEST_FLAGS_TEST)
+cov-softtest: $(SOFTTEST_OBJ) $(SOFTTEST_TEST_OBJ)
+	$(MKDIR) $(SOFTTEST_BUILD_EXEC)
+	$(CC) $(CFLAGS) $(COVFLAGS) -I$(SOFTTEST_PATH) $(SOFTTEST_OBJ) $(SOFTTEST_TEST_OBJ) -o $(SOFTTEST_BUILD_EXEC)/cov
+
+$(SOFTTEST_BUILD_OBJ_SRC)/%.o: $(SOFTTEST_PATH)/%.c
+	$(MKDIR) $(@D)
+	$(CC) $(FLAGS) -c $< -o $@
+
+$(SOFTTEST_BUILD_OBJ_TEST)/%.o: $(SOFTTEST_PATH_TEST)/%.c
+	$(MKDIR) $(@D)
+	$(CC) $(FLAGS_TEST) -c $< -o $@
 
 run-softtest: test-softtest
-	$(SOFTTEST_BUILD)/test
+	$(SOFTTEST_BUILD_EXEC)/test
+
+run-cov-softtest: cov-softtest
+	$(SOFTTEST_BUILD_EXEC)/cov
+	$(COV) $(SOFTTEST_OBJ)
 
 clean-softtest: 
 	$(RM) -r $(SOFTTEST_BUILD)
