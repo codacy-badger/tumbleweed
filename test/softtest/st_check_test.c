@@ -71,9 +71,78 @@ void check_short_equals(void)
         ASSERT_TRUE(softtest_check_short_equals(-1, -1));
         ASSERT_FALSE(softtest_check_short_equals(1, 2));
         ASSERT_FALSE(softtest_check_short_equals(0, 1));
-        ASSERT_TRUE(softtest_check_short_equals(-1, 1));
+        ASSERT_FALSE(softtest_check_short_equals(-1, 1));
 }
 
+void check_short_not_equals(void)
+{
+        ASSERT_TRUE(softtest_check_short_not_equals(0, 1));
+        ASSERT_TRUE(softtest_check_short_not_equals(0, -1));
+        ASSERT_TRUE(softtest_check_short_not_equals(1, -1));
+        ASSERT_FALSE(softtest_check_short_not_equals(1, 1));
+        ASSERT_FALSE(softtest_check_short_not_equals(0, 0));
+        ASSERT_FALSE(softtest_check_short_not_equals(-1, -1));
+}
+
+void check_short_greater_than(void)
+{
+        ASSERT_TRUE(softtest_check_short_greater_than(0, 1));
+        ASSERT_TRUE(softtest_check_short_greater_than(-1, 0));
+        ASSERT_TRUE(softtest_check_short_greater_than(-1, 1));
+        ASSERT_FALSE(softtest_check_short_greater_than(1, 1));
+        ASSERT_FALSE(softtest_check_short_greater_than(2, 1));
+        ASSERT_FALSE(softtest_check_short_greater_than(1, -1));
+        ASSERT_FALSE(softtest_check_short_greater_than(1, 0));
+}
+
+void check_short_greater_or_equals(void)
+{
+        ASSERT_TRUE(softtest_check_short_greater_or_equals(0, 1));
+        ASSERT_TRUE(softtest_check_short_greater_or_equals(-1, 0));
+        ASSERT_TRUE(softtest_check_short_greater_or_equals(-1, 1));
+        ASSERT_TRUE(softtest_check_short_greater_or_equals(1, 1));
+        ASSERT_FALSE(softtest_check_short_greater_or_equals(2, 1));
+        ASSERT_FALSE(softtest_check_short_greater_or_equals(1, -1));
+        ASSERT_FALSE(softtest_check_short_greater_or_equals(1, 0));
+}
+
+void check_short_less_than(void)
+{
+        ASSERT_TRUE(softtest_check_short_less_than(0, -1));
+        ASSERT_TRUE(softtest_check_short_less_than(1, 0));
+        ASSERT_TRUE(softtest_check_short_less_than(1, -1));
+        ASSERT_FALSE(softtest_check_short_less_than(1, 1));
+        ASSERT_FALSE(softtest_check_short_less_than(1, 2));
+        ASSERT_FALSE(softtest_check_short_less_than(-1, 0));
+        ASSERT_FALSE(softtest_check_short_less_than(-1, 1));
+}
+
+void check_short_less_or_equals(void)
+{
+        ASSERT_TRUE(softtest_check_short_less_or_equals(0, -1));
+        ASSERT_TRUE(softtest_check_short_less_or_equals(1, 0));
+        ASSERT_TRUE(softtest_check_short_less_or_equals(1, -1));
+        ASSERT_TRUE(softtest_check_short_less_or_equals(1, 1));
+        ASSERT_FALSE(softtest_check_short_less_or_equals(1, 2));
+        ASSERT_FALSE(softtest_check_short_less_or_equals(-1, 0));
+        ASSERT_FALSE(softtest_check_short_less_or_equals(-1, 1));
+}
+
+void check_short_within(void)
+{
+        ASSERT_TRUE(softtest_check_short_within(1, 3, 2));
+        ASSERT_TRUE(softtest_check_short_within(1, 2, 1));
+        ASSERT_FALSE(softtest_check_short_within(1, 2, 2));
+        ASSERT_FALSE(softtest_check_short_within(1, 2, 3));
+}
+
+void check_short_outside(void)
+{
+        ASSERT_TRUE(softtest_check_short_outside(1, 2, 3));
+        ASSERT_FALSE(softtest_check_short_outside(1, 2, 1));
+        ASSERT_FALSE(softtest_check_short_outside(1, 2, 2));
+        ASSERT_FALSE(softtest_check_short_outside(1, 3, 2));
+}
 /* boolean */
 void check_true(void)
 {

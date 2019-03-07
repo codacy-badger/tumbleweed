@@ -35,6 +35,14 @@ int main(void)
         ST_TEST(check_char_less_or_equals);
         ST_TEST(check_char_within);
         ST_TEST(check_char_outside);
+        ST_TEST(check_short_equals);
+        ST_TEST(check_short_not_equals);
+        ST_TEST(check_short_greater_than);
+        ST_TEST(check_short_greater_or_equals);
+        ST_TEST(check_short_less_than);
+        ST_TEST(check_short_less_or_equals);
+        ST_TEST(check_short_within);
+        ST_TEST(check_short_outside);
         return ST_END();
 }
 
